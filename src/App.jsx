@@ -1,13 +1,12 @@
-import logo from "./logo.svg";
 import "./App.css";
 import Router from "./shared/Router";
 
 function App() {
-    return (
-        <>
-            <Router />
-        </>
-    );
+  return (
+    <>
+      <Router />
+    </>
+  );
 }
 
 export default App;
