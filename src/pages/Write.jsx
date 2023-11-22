@@ -41,7 +41,7 @@ function Write() {
                 <button>완료</button>
             </Footer>
         </Container>
-    );
+    );}
 
 const Title = styled.h2`
     font-size: 40px;
