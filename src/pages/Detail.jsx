@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import Photos from "../components/Photos";
 import defaultUser from "../assets/no-image.gif";
+import Photos from "../components/Photos";
 
 
 function Detail() {
