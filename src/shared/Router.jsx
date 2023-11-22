@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Home from "../pages/Home";
 import Write from "../pages/Write";
 import Detail from "../pages/Detail";
@@ -12,6 +12,7 @@ function Router() {
                 <Route path="/detail" element={<Detail />} />
                 <Route path="/mypage" element={<MyPage />} />
                 <Route path="/write" element={<Write />} />
+                <Route path="*" element={<Navigate replace to="/" />} />
             </Routes>
         </BrowserRouter>
     );
