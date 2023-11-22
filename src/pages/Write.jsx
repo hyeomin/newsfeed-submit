@@ -42,7 +42,6 @@ function Write() {
             </Footer>
         </Container>
     );
-}
 
 const Title = styled.h2`
     font-size: 40px;
