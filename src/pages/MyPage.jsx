@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Register from "./Register";
 
 function MyPage() {
+
   // const post = {
   //   user_id,
 
@@ -38,6 +39,7 @@ function MyPage() {
       </MypageBody>
     </>
   );
+
 }
 
 export default MyPage;
