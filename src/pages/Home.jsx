@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import mainImg from "../assets/breadMain.png";
+import mainImg from "../assets/breadMain.jpg";
 
 const HomeImg = styled.img`
   display: flex;
