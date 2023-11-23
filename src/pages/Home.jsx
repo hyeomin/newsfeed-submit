@@ -1,6 +1,6 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { default as styled } from "styled-components";
-import mainImg from "../assets/breadMain.jpg";
 import { GlobalStyles } from "../components/NightMode";
 
 const HomeHeader = styled.header`
@@ -9,7 +9,7 @@ const HomeHeader = styled.header`
   justify-content: space-between;
 `;
 
-const HomeImg = styled.img`
+const HomeImg = styled.button`
   display: flex;
   width: 200px;
   height: 80px;
@@ -62,6 +62,16 @@ function Home() {
   const themeToggler = () => {
     theme === "light" ? setTheme("dark") : setTheme("light");
   };
+  const navigate = useNavigate();
+  const navigateWriting = () => {
+    navigate("/write");
+  };
+  const navigateLogin = () => {
+    navigate("/register");
+  };
+  const navigateHome = () => {
+    navigate("/");
+  };
 
   return (
     <div>
@@ -69,11 +79,13 @@ function Home() {
       <GlobalStyles theme={theme} />
       <div>
         <HomeHeader>
-          <HomeImg src={mainImg}></HomeImg>
+          <HomeImg onClick={navigateHome}></HomeImg>
           <WrappingBtns>
             <Btns>
-              <PostBreadBtn>빵 소개하러 가기</PostBreadBtn>
-              <LoginBtn>로그인</LoginBtn>
+              <PostBreadBtn onClick={navigateWriting}>
+                빵 소개하러 가기
+              </PostBreadBtn>
+              <LoginBtn onClick={navigateLogin}>로그인</LoginBtn>
               <ModeBtn onClick={themeToggler}>
                 {theme === "light" ? "🌚" : "🌞"}
               </ModeBtn>
