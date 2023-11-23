@@ -9,7 +9,7 @@ const Container = styled.section`
 const CardWrapper = styled.ul`
   margin: 50px;
   display: grid;
-  grid-template-columns: 1fr 1fr 3fr;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 100px;
   border-radius: 12px;
 `;

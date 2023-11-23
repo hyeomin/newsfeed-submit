@@ -12,34 +12,39 @@ function Post() {
   console.log(currentIndex);
   return (
     <>
-      <Container>
-        <Overflow>
-          <SlideContainer>
-            <Slide>
-              <img src={images[currentIndex] ?? defaultUser} alt="기본이미지" />
-            </Slide>
-            <PrevBtn
-              onClick={() =>
-                setCurrentIndex(
-                  currentIndex > 0 ? currentIndex - 1 : images.length - 1,
-                )
-              }
-            >
-              prev
-            </PrevBtn>
-            <NextBtn
-              onClick={() =>
-                setCurrentIndex(
-                  currentIndex < images.length - 1 ? currentIndex + 1 : 0,
-                )
-              }
-            >
-              next
-            </NextBtn>
-          </SlideContainer>
-        </Overflow>
-        <Review>작성자가 쓴 텍스트 넣을 거임</Review>
-      </Container>
+      <OutContainer>
+        <PrevBtn
+          onClick={() =>
+            setCurrentIndex(
+              currentIndex > 0 ? currentIndex - 1 : images.length - 1,
+            )
+          }
+        >
+          prev
+        </PrevBtn>
+        <Container>
+          <Overflow>
+            <SlideContainer>
+              <Slide>
+                <img
+                  src={images[currentIndex] ?? defaultUser}
+                  alt="기본이미지"
+                />
+              </Slide>
+            </SlideContainer>
+          </Overflow>
+          <Review>작성자가 쓴 텍스트 넣을 거임</Review>
+        </Container>
+        <NextBtn
+          onClick={() =>
+            setCurrentIndex(
+              currentIndex < images.length - 1 ? currentIndex + 1 : 0,
+            )
+          }
+        >
+          next
+        </NextBtn>
+      </OutContainer>
     </>
   );
 }
@@ -83,13 +88,16 @@ const Slide = styled.div`
 `;
 const PrevBtn = styled.button`
   cursor: pointer;
-  position: absolute;
-  top: 50%;
-  left: 10px;
+  width: 100px;
+  height: 50px;
 `;
 const NextBtn = styled.button`
   cursor: pointer;
-  position: absolute;
-  top: 50%;
-  right: 10px;
+  width: 100px;
+  height: 50px;
+`;
+
+const OutContainer = styled.div`
+  display: flex;
+  align-items: center;
 `;
