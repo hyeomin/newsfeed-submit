@@ -13,7 +13,6 @@ function Post() {
   return (
     <>
       <OutContainer>
-        {" "}
         <PrevBtn
           onClick={() =>
             setCurrentIndex(
