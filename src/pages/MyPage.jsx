@@ -1,24 +1,29 @@
 import React from "react";
 
+import { Link } from "react-router-dom";
 import styled from "styled-components";
-import Register from "./Register";
 
 function MyPage() {
-  // const post = {
-  //   user_id,
+  const post = [{
+    user_id : 1,
 
-  //   user_name,
+    user_name : 'jiwoo',
 
-  //   bread_name,
+    bread_name : '붕어빵',
 
-  //   createdAt,
+    createdAt : "11",
 
-  //   updatedAt,
-  // };
+    updatedAt : "11",
+  }];
+
+  const mypost = post.filter((item)=>{
+return item.user_id === 1
+  })
 
   return (
     <>
-      <Register />
+    <HeadWrapper><Link to={'/register'}>
+      <Button>로그인</Button>  </Link></HeadWrapper>
       <AvartaNameWrapper>
         <Avarta>
           <img
@@ -29,12 +34,23 @@ function MyPage() {
         <p>이름</p>
       </AvartaNameWrapper>
       <MypageBody>
-        <h1></h1>
-        <input />
-        <div>
-          {/* {post.map((item)=>{ */}
-          {/* return ( ) })} */}
-        </div>
+        <InputWrapper>
+        <input /></InputWrapper>
+        <BodyWrapper>
+          {mypost.map((item)=>{
+          return (
+            <>
+            <p>{item.user_id}</p>
+            <p>{item.user_name}</p>
+            <p>{item.bread_name}</p>
+            <p>{item.createdAt}</p>
+            <p>{item.updatedAt}</p>
+            </>
+
+
+            
+           ) })}
+        </BodyWrapper>
       </MypageBody>
     </>
   );
@@ -55,4 +71,30 @@ const Avarta = styled.figure`
 
 const MypageBody = styled.body`
   background-color: #fff1f0;
+height: 800px;
 `;
+
+const HeadWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`
+const Button = styled.button`
+  
+  background-color: black;
+  color:  white;
+  font-size: large;
+  border-radius: 5px;
+`;
+
+const InputWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin: 30px , 30px;
+`
+const BodyWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+
+  `
