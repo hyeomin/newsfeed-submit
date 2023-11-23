@@ -49,7 +49,7 @@ export default function Register() {
 
     } catch (error) {
       console.error(error);
-      alert('error')
+      alert('이메일형식이어야합니다 .비밀번호는 6자 이상이어야합니다.')
      
     }
   };
