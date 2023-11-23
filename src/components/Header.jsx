@@ -23,3 +23,10 @@ const HeadWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
 `;
+
+const Button = styled.button`
+  background-color: black;
+  color: white;
+  font-size: large;
+  border-radius: 5px;
+`;
