@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Bread from "../assets/Bread1.jpeg";
 
@@ -8,15 +9,18 @@ const CardWrapper = styled.li`
   align-items: center;
 `;
 
-const Thumbnail = styled.figure`
+const Thumbnail = styled.button`
   width: 200px;
   height: 100px;
   overflow: hidden;
+  border: 0px;
+  background-color: transparent;
   & img {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
+  cursor: pointer;
 `;
 
 const UserInfo = styled.div`
@@ -44,9 +48,13 @@ const Content = styled.div`
 `;
 
 export default function HomeCard() {
+  const navigate = useNavigate();
+  const navigateDetail = () => {
+    navigate("/detail");
+  };
   return (
     <CardWrapper>
-      <Thumbnail>
+      <Thumbnail onClick={navigateDetail}>
         <img src={Bread} />
       </Thumbnail>
       <UserInfo>
