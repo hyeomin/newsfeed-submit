@@ -7,7 +7,6 @@ import {
   query,
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
 import thumbnail from "../assets/noun-thumbnail-3022241.png";
 import {
   Container,
@@ -36,29 +35,22 @@ function Write() {
   const [content, setContent] = useState("");
   const [selectedBread, setSelectedBread] = useState(breadList[0].name);
 
-  const [editTitle, setEditTitle] = useState("");
-  const [editContent, setEditContent] = useState("");
+  const [editingPost, setEditingPost] = useState(null);
 
-  const navigate = useNavigate();
-  const param = useParams();
+  //   const navigate = useNavigate();
+  //   const param = useParams();
 
   useEffect(() => {
     const fetchData = async () => {
-      // collection 이름이 todos인 collection의 모든 document를 가져옵니다.
       const q = query(collection(db, "posts"));
       const querySnapshot = await getDocs(q);
       const initialPosts = [];
 
-      // document의 id와 데이터를 initialTodos에 저장합니다.
-      // doc.id의 경우 따로 지정하지 않는 한 자동으로 생성되는 id입니다.
-      // doc.data()를 실행하면 해당 document의 데이터를 가져올 수 있습니다.
       querySnapshot.forEach((doc) => {
         initialPosts.push({ id: doc.id, ...doc.data() });
       });
-
       setPosts(initialPosts);
     };
-
     fetchData();
   }, []);
 
@@ -103,11 +95,11 @@ function Write() {
     // navigate("/");
   };
 
-  //   const onActivateEditHandler = (id) => {
-  //     console.log(post);
-  //     // setEditTitle(post.title);
-  //     // setEditContent(post.content);
-  //   };
+  const onActivateEditHandler = (post) => {
+    setTitle(post.title);
+    setContent(post.content);
+    setEditingPost(post);
+  };
 
   const onDeleteHandler = async (post) => {
     window.confirm("게시물을 삭제하시겠습니까?");
@@ -160,7 +152,9 @@ function Write() {
       </ThumbnailContainer>
       <Footer>
         <button>홈으로 돌아가기</button>
-        <button onClick={onSubmitHandler}>완료</button>
+        <button onClick={onSubmitHandler}>
+          {editingPost ? "수정 완료" : "완료"}
+        </button>
       </Footer>
       <div>
         <label>----여기는 test----</label>
@@ -168,7 +162,20 @@ function Write() {
           return (
             <div key={item.postID}>
               <label>{item.breadType}</label>
-              <button>수정하기</button>
+              <button onClick={() => onActivateEditHandler(item)}>
+                수정하기
+              </button>
+              {editingPost && (
+                <button
+                  onClick={() => {
+                    setTitle("");
+                    setContent("");
+                    setEditingPost(null);
+                  }}
+                >
+                  취소
+                </button>
+              )}
               <button onClick={() => onDeleteHandler(item)}>삭제하기</button>
             </div>
           );
