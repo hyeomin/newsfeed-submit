@@ -3,7 +3,7 @@ import React from "react";
 import styled from "styled-components";
 import Header from "../components/Header";
 
-function MyPage() {
+function MyPage({ users }) {
   const post = [
     {
       user_id: 1,
@@ -12,9 +12,9 @@ function MyPage() {
 
       bread_name: "붕어빵",
 
-      createdAt: "11",
+      createdAt: "카스테라",
 
-      updatedAt: "11",
+      updatedAt: "포켓몬빵",
     },
   ];
 
@@ -24,7 +24,7 @@ function MyPage() {
 
   return (
     <>
-      <Header />
+      <Header users={users} />
       <AvartaNameWrapper>
         <Avarta>
           <img
@@ -32,18 +32,19 @@ function MyPage() {
             alt="이미지 없음"
           />
         </Avarta>
-        <p>이름</p>
+        <p>기미노나마에와?</p>
       </AvartaNameWrapper>
       <MypageBody>
         <InputWrapper>
-          <input />
+          <input placeholder="아무것도 쓰지마세요" />
         </InputWrapper>
         <BodyWrapper>
           {mypost.map((item) => {
             return (
               <>
-                <p>{item.user_id}</p>
-                <p>{item.user_name}</p>
+                <p>{users.id}</p>
+                <p>{users.email}</p>
+                <p>{users.nickname}</p>
                 <p>{item.bread_name}</p>
                 <p>{item.createdAt}</p>
                 <p>{item.updatedAt}</p>
@@ -67,6 +68,7 @@ const AvartaNameWrapper = styled.div`
 `;
 const Avarta = styled.figure`
   border-radius: 50%;
+  overflow: hidden;
 `;
 
 const MypageBody = styled.body`
