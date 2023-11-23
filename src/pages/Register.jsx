@@ -1,5 +1,3 @@
-import React, { useEffect, useState } from "react";
-import { auth } from "../firebase";
 import {
   createUserWithEmailAndPassword,
   getAuth,
@@ -7,6 +5,8 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
 
 export default function Register() {
   const [email, setEmail] = useState("");
@@ -38,11 +38,19 @@ export default function Register() {
         auth,
         email,
         password
+       
       );
+       console.log(userCredential)
+
+       const id = userCredential.user.uid;
+       console.log('User ID:', id);
+
+    alert('회원가입 완료되었습니다.')
+
     } catch (error) {
       console.error(error);
-      // const errorCode = error.code;
-      // const errorMessage = error.message;
+      alert('error')
+     
     }
   };
   const signIn = async (event) => {
@@ -52,20 +60,27 @@ export default function Register() {
         auth,
         email,
         password
+       
       );
+      console.log(userCredential)
+      alert('로그인 되었습니다.')
+
+
+     
     } catch (error) {
       console.error(error);
-      // const errorCode = error.code;
-      // const errorMessage = error.message;
+      alert('error')
+      
     }
   };
   const logOut = async (event) => {
     event.preventDefault();
     await signOut(auth);
+    alert('로그아웃되었습니다.')
   };
 
-  return (
-    <div>
+  return (<BodyWrapper>
+    <LoginWrapper>
       <h2>로그인페이지</h2>
       <form>
         <div>
@@ -92,6 +107,37 @@ export default function Register() {
         <button onClick={signIn}>로그인</button>
         <button onClick={logOut}>로그아웃</button>
       </form>
-    </div>
+    </LoginWrapper></BodyWrapper>
   );
 }
+
+const Div = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 800px;
+`
+const LoginWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff1f0;
+  border: 1px solid black;
+  border-radius: 5px;
+  width: 400px;
+  height: 300px;
+  gap :20px;
+  & h2 {
+    font-size: 30px;
+
+  }
+  & button {
+    background-color: black;
+    color: white;
+  }
+
+`
+const BodyWrapper = styled.div`
+  
+`

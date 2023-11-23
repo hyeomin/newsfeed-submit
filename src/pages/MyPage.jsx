@@ -1,25 +1,30 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 import styled from "styled-components";
-import Register from "./Register";
+import Header from "../components/Header";
 
 function MyPage() {
+  const post = [
+    {
+      user_id: 1,
 
-  // const post = {
-  //   user_id,
+      user_name: "jiwoo",
 
-  //   user_name,
+      bread_name: "붕어빵",
 
-  //   bread_name,
+      createdAt: "11",
 
-  //   createdAt,
+      updatedAt: "11",
+    },
+  ];
 
-  //   updatedAt,
-  // };
+  const mypost = post.filter((item) => {
+    return item.user_id === 1;
+  });
 
   return (
     <>
-      <Register />
+      <Header />
       <AvartaNameWrapper>
         <Avarta>
           <img
@@ -30,16 +35,25 @@ function MyPage() {
         <p>이름</p>
       </AvartaNameWrapper>
       <MypageBody>
-        <h1></h1>
-        <input />
-        <div>
-          {/* {post.map((item)=>{ */}
-          {/* return ( ) })} */}
-        </div>
+        <InputWrapper>
+          <input />
+        </InputWrapper>
+        <BodyWrapper>
+          {mypost.map((item) => {
+            return (
+              <>
+                <p>{item.user_id}</p>
+                <p>{item.user_name}</p>
+                <p>{item.bread_name}</p>
+                <p>{item.createdAt}</p>
+                <p>{item.updatedAt}</p>
+              </>
+            );
+          })}
+        </BodyWrapper>
       </MypageBody>
     </>
   );
-
 }
 
 export default MyPage;
@@ -57,4 +71,21 @@ const Avarta = styled.figure`
 
 const MypageBody = styled.body`
   background-color: #fff1f0;
+  height: 800px;
+`;
+
+const HeadWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+
+const InputWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin: 30px, 30px;
+`;
+const BodyWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;

@@ -2,9 +2,12 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
 import App from "./App";
+import app from "./firebase";
 import store from "./redux/config/configStore";
 import reportWebVitals from "./reportWebVitals";
 import GlobalStyles from "./shared/GlobalStyles";
+
+console.log("app", app);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
