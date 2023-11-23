@@ -13,6 +13,7 @@ function Router() {
         <Route path="/detail" element={<Detail />} />
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/write" element={<Write />} />
+        <Route path="*" element={<Navigate replace to="/" />} />
         <Route path="/register" element={<Register />} />
       </Routes>
     </BrowserRouter>

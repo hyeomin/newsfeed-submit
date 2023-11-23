@@ -4,8 +4,14 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 function MyPage() {
+<<<<<<< HEAD
   const post = [{
     user_id : 1,
+=======
+
+  // const post = {
+  //   user_id,
+>>>>>>> ab5f3964aaf6e4c9f32efff8cba3e2fc0026e6dd
 
     user_name : 'jiwoo',
 
@@ -54,6 +60,10 @@ return item.user_id === 1
       </MypageBody>
     </>
   );
+<<<<<<< HEAD
+=======
+
+>>>>>>> ab5f3964aaf6e4c9f32efff8cba3e2fc0026e6dd
 }
 
 export default MyPage;
