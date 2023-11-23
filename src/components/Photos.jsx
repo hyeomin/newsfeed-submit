@@ -17,25 +17,25 @@ function Photos() {
           <Slide>
             <img src={images[currentIndex] ?? defaultUser} alt="기본이미지" />
           </Slide>
+          <PrevBtn
+            onClick={() =>
+              setCurrentIndex(
+                currentIndex > 0 ? currentIndex - 1 : images.length - 1,
+              )
+            }
+          >
+            prev
+          </PrevBtn>
+          <NextBtn
+            onClick={() =>
+              setCurrentIndex(
+                currentIndex < images.length - 1 ? currentIndex + 1 : 0,
+              )
+            }
+          >
+            next
+          </NextBtn>
         </SlideContainer>
-        <PrevBtn
-          onClick={() =>
-            setCurrentIndex(
-              currentIndex > 0 ? currentIndex - 1 : images.length - 1,
-            )
-          }
-        >
-          prev
-        </PrevBtn>
-        <NextBtn
-          onClick={() =>
-            setCurrentIndex(
-              currentIndex < images.length - 1 ? currentIndex + 1 : 0,
-            )
-          }
-        >
-          next
-        </NextBtn>
       </Overflow>
     </>
   );
@@ -50,8 +50,8 @@ const Overflow = styled.div`
 
 const SlideContainer = styled.div`
   display: flex;
-  transform: translate(-0vw);
-  transition: all 2s;
+  /* transform: translate(-0vw);
+  transition: all 2s; */
 `;
 const Slide = styled.div`
   width: 100vw;

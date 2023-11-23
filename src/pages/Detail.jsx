@@ -1,17 +1,27 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import defaultUser from "../assets/no-image.gif";
 import Photos from "../components/Photos";
 
 function Detail() {
+  const navigate = useNavigate();
+  const navigateHome = () => {
+    navigate("/");
+  };
+
+  const MovetoTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
     <Container>
-      <ButtonHome>Home</ButtonHome>
+      <ButtonHome onClick={navigateHome}>Home</ButtonHome>
       <Header>
         <ProfileImg>
           <img src={null ?? defaultUser} alt="프로필이미지" />
         </ProfileImg>
-        <Title>게시물 제목</Title>
+        <Title>여기에는 제목이 들어갈 겁니다 맛있는 빠아아앙!!!!</Title>
         <Date>2023/11/22</Date>
       </Header>
 
@@ -19,7 +29,7 @@ function Detail() {
         <Photos />
         <Review>작성자가 쓴 텍스트 넣을 거임</Review>
       </Post>
-      <Button>Top</Button>
+      <Button onClick={MovetoTop}>Top</Button>
     </Container>
   );
 }
@@ -30,6 +40,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 300vh;
 `;
 
 const Header = styled.div`
