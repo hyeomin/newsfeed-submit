@@ -1,12 +1,6 @@
-import {
-  addDoc,
-  collection,
-  deleteDoc,
-  doc,
-  getDocs,
-  query,
-} from "firebase/firestore";
+import { deleteDoc, doc } from "firebase/firestore";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import thumbnail from "../assets/noun-thumbnail-3022241.png";
 import {
   Container,
@@ -18,6 +12,7 @@ import {
   TitleInput,
 } from "../components/WriteStyledComponents";
 import { db } from "../firebase";
+import { addPost, deletePost, fetchPosts } from "../redux/modules/postsReducer";
 
 function Write() {
   const breadList = [
@@ -30,7 +25,7 @@ function Write() {
     { id: 6, name: "카스테라" },
   ];
 
-  const [posts, setPosts] = useState([]);
+  // const [posts, setPosts] = useState([]);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [selectedBread, setSelectedBread] = useState(breadList[0].name);
@@ -39,20 +34,12 @@ function Write() {
 
   //   const navigate = useNavigate();
   //   const param = useParams();
+  const dispatch = useDispatch();
+  const { posts, loading, error } = useSelector((state) => state.postsReducer);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const q = query(collection(db, "posts"));
-      const querySnapshot = await getDocs(q);
-      const initialPosts = [];
-
-      querySnapshot.forEach((doc) => {
-        initialPosts.push({ id: doc.id, ...doc.data() });
-      });
-      setPosts(initialPosts);
-    };
-    fetchData();
-  }, []);
+    dispatch(fetchPosts());
+  }, [dispatch]);
 
   const onChangeHandler = (event) => {
     const { name, value } = event.target;
@@ -73,24 +60,19 @@ function Write() {
     } else {
       alert("제출하시겠습니까?");
     }
+    const timestamp = new Date().toISOString();
+
     const newPost = {
       postTitle: title,
       postContent: content,
       //   userID,
       //   userName,
       breadType: selectedBread,
-      createdAt: new Date().toISOString(),
-      //   updatedAt,
+      createdAt: timestamp,
+      updatedAt: timestamp,
     };
 
-    try {
-      const collectionRef = collection(db, "posts");
-      const docRef = await addDoc(collectionRef, newPost);
-      const newPostWithID = { ...newPost, postID: docRef.id };
-      setPosts([...posts, newPostWithID]);
-    } catch (error) {
-      console.error("Error adding document: ", error);
-    }
+    dispatch(addPost(newPost));
 
     // navigate("/");
   };
@@ -109,7 +91,7 @@ function Write() {
     const updatedPostList = posts.filter((item) => {
       return item.postID !== post.postID;
     });
-    setPosts(updatedPostList);
+    dispatch(deletePost(updatedPostList));
   };
 
   return (
@@ -162,6 +144,7 @@ function Write() {
           return (
             <div key={item.postID}>
               <label>{item.breadType}</label>
+              <span>{item.postTitle}</span>
               <button onClick={() => onActivateEditHandler(item)}>
                 수정하기
               </button>
