@@ -17,7 +17,7 @@ function Router() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home users={users} setUsers={setUsers} />} />
         <Route path="/detail" element={<Detail />} />
         <Route path="/mypage" element={<MyPage users={users} />} />
         <Route path="/write" element={<Write />} />

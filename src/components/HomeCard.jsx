@@ -7,6 +7,7 @@ const CardWrapper = styled.li`
   flex-direction: column;
   align-items: center;
 `;
+
 const Thumbnail = styled.figure`
   width: 200px;
   height: 100px;
@@ -50,7 +51,7 @@ export default function HomeCard() {
       </Thumbnail>
       <UserInfo>
         <UserNameAndTime>
-          <p>유저이름</p>
+          <p>이름</p>
           <time>날짜</time>
         </UserNameAndTime>
         <SelectedBread>
