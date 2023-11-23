@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { default as styled } from "styled-components";
+import breadMain from "../assets/breadMain.jpg";
+import HomePageCards from "../components/HomePageCards";
 import { GlobalStyles } from "../components/NightMode";
 
 const HomeHeader = styled.header`
@@ -9,11 +11,21 @@ const HomeHeader = styled.header`
   justify-content: space-between;
 `;
 
-const HomeImg = styled.button`
+const ButtonImg = styled.img`
+  display: flex;
+  width: 200px;
+  height: 80px;
+  margin: 10px;
+  cursor: pointer;
+`;
+
+const ImgButton = styled.button`
   display: flex;
   width: 200px;
   height: 80px;
   margin: 20px;
+  background-color: transparent;
+  border: 0px;
 `;
 
 const WrappingBtns = styled.div`
@@ -33,20 +45,24 @@ const Btns = styled.button`
 `;
 
 const PostBreadBtn = styled.button`
-  background-color: transparent;
+  background-color: #ffebc1;
   border: 0px;
+  border-radius: 20px;
   width: 170px;
   height: 30px;
   text-align: center;
   font-size: 20px;
+  cursor: pointer;
 `;
 const LoginBtn = styled.button`
-  background-color: transparent;
+  background-color: #ffebc1;
   border: 0px;
+  border-radius: 20px;
   width: 100px;
   height: 30px;
   text-align: center;
   font-size: 20px;
+  cursor: pointer;
 `;
 const ModeBtn = styled.button`
   background-color: transparent;
@@ -55,6 +71,18 @@ const ModeBtn = styled.button`
   height: 30px;
   text-align: center;
   font-size: 20px;
+  cursor: pointer;
+`;
+
+const SearchBtn = styled.button`
+  background-color: #ffebc1;
+  border: 0px;
+  border-radius: 20px;
+  width: 80px;
+  height: 30px;
+  text-align: center;
+  font-size: 20px;
+  cursor: pointer;
 `;
 
 function Home() {
@@ -70,6 +98,7 @@ function Home() {
     navigate("/register");
   };
   const navigateHome = () => {
+    alert("Go to Home!");
     navigate("/");
   };
 
@@ -79,9 +108,12 @@ function Home() {
       <GlobalStyles theme={theme} />
       <div>
         <HomeHeader>
-          <HomeImg onClick={navigateHome}></HomeImg>
+          <ImgButton onClick={navigateHome}>
+            <ButtonImg src={breadMain} />
+          </ImgButton>
           <WrappingBtns>
             <Btns>
+              <SearchBtn>🔍</SearchBtn>
               <PostBreadBtn onClick={navigateWriting}>
                 빵 소개하러 가기
               </PostBreadBtn>
@@ -92,9 +124,7 @@ function Home() {
             </Btns>
           </WrappingBtns>
         </HomeHeader>
-        <li>
-          <ul>카드</ul>
-        </li>
+        <HomePageCards />
       </div>
       {/* </ThemeProvider> */}
     </div>
