@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import defaultUser from "../assets/no-image.gif";
-import Photos from "../components/Photos";
+import Post from "../components/Post";
 
 function Detail() {
   const navigate = useNavigate();
@@ -15,22 +15,21 @@ function Detail() {
   };
 
   return (
-    <Container>
-      <ButtonHome onClick={navigateHome}>Home</ButtonHome>
-      <Header>
-        <ProfileImg>
-          <img src={null ?? defaultUser} alt="프로필이미지" />
-        </ProfileImg>
-        <Title>여기에는 제목이 들어갈 겁니다 맛있는 빠아아앙!!!!</Title>
-        <Date>2023/11/22</Date>
-      </Header>
+    <>
+      <Container>
+        <ButtonHome onClick={navigateHome}>Home</ButtonHome>
+        <Header>
+          <ProfileImg>
+            <img src={null ?? defaultUser} alt="프로필이미지" />
+          </ProfileImg>
+          <Title>여기에는 제목이 들어갈 겁니다 맛있는 빠아아아앙!!</Title>
+          <Date>2023/11/22</Date>
+        </Header>
 
-      <Post>
-        <Photos />
-        <Review>작성자가 쓴 텍스트 넣을 거임</Review>
-      </Post>
+        <Post />
+      </Container>
       <Button onClick={MovetoTop}>Top</Button>
-    </Container>
+    </>
   );
 }
 
@@ -65,23 +64,6 @@ const Date = styled.p`
   font-size: 15px;
   color: blue;
   margin-left: 500px;
-`;
-const Post = styled.li`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border: 2px solid black;
-  border-radius: 20px;
-  height: 500px;
-  width: 1200px;
-  margin: 20px;
-`;
-
-const Review = styled.main`
-  flex-direction: row;
-  color: black;
-  background-color: yellow;
 `;
 
 const Button = styled.button`

@@ -35,7 +35,7 @@ const Btns = styled.button`
 const PostBreadBtn = styled.button`
   background-color: transparent;
   border: 0px;
-  width: 150px;
+  width: 170px;
   height: 30px;
   text-align: center;
   font-size: 20px;
