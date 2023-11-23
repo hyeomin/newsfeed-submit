@@ -1,4 +1,3 @@
-import { deleteDoc, doc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import thumbnail from "../assets/noun-thumbnail-3022241.png";
@@ -11,7 +10,6 @@ import {
   ThumbnailImgWrapper,
   TitleInput,
 } from "../components/WriteStyledComponents";
-import { db } from "../firebase";
 import { addPost, deletePost, fetchPosts } from "../redux/modules/postsReducer";
 
 function Write() {
@@ -35,7 +33,7 @@ function Write() {
   //   const navigate = useNavigate();
   //   const param = useParams();
   const dispatch = useDispatch();
-  const { posts, loading, error } = useSelector((state) => state.postsReducer);
+  const { posts } = useSelector((state) => state.postsReducer);
 
   useEffect(() => {
     dispatch(fetchPosts());
@@ -83,15 +81,11 @@ function Write() {
     setEditingPost(post);
   };
 
-  const onDeleteHandler = async (post) => {
-    window.confirm("게시물을 삭제하시겠습니까?");
-    const postRef = doc(db, "posts", post.postID);
-    await deleteDoc(postRef);
-
-    const updatedPostList = posts.filter((item) => {
-      return item.postID !== post.postID;
-    });
-    dispatch(deletePost(updatedPostList));
+  const onDeleteHandler = (id) => {
+    const confirmation = window.confirm("게시물을 삭제하시겠습니까?");
+    if (confirmation) {
+      dispatch(deletePost(id));
+    }
   };
 
   return (
@@ -142,24 +136,13 @@ function Write() {
         <label>----여기는 test----</label>
         {posts.map((item) => {
           return (
-            <div key={item.postID}>
+            <div key={item.id}>
               <label>{item.breadType}</label>
               <span>{item.postTitle}</span>
               <button onClick={() => onActivateEditHandler(item)}>
                 수정하기
               </button>
-              {editingPost && (
-                <button
-                  onClick={() => {
-                    setTitle("");
-                    setContent("");
-                    setEditingPost(null);
-                  }}
-                >
-                  취소
-                </button>
-              )}
-              <button onClick={() => onDeleteHandler(item)}>삭제하기</button>
+              <button onClick={() => onDeleteHandler(item.id)}>삭제하기</button>
             </div>
           );
         })}

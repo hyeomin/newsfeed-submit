@@ -1,5 +1,12 @@
 // Add these action types
-import { addDoc, collection, getDocs, query } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  query,
+} from "firebase/firestore";
 import { db } from "../../firebase";
 
 export const FETCH_POSTS_START = "FETCH_POSTS_START";
@@ -10,10 +17,10 @@ export const ADD_POST_START = "ADD_POST_START";
 export const ADD_POST_SUCCESS = "ADD_POST_SUCCESS";
 export const ADD_POST_FAILURE = "ADD_POST_FAILURE";
 
-export const UPDATE_POST = "UPDATE_POST";
-export const DELETE_POST = "DELETE_POST";
+export const DELETE_POST_START = "DELETE_POST_START";
+export const DELETE_POST_SUCCESS = "DELETE_POST_SUCCESS";
 
-// In postsReducer (previously fetchReducer)
+export const UPDATE_POST = "UPDATE_POST";
 
 const initialState = {
   posts: [],
@@ -55,10 +62,16 @@ export const updatePost = (post) => ({
   payload: post,
 });
 
-export const deletePost = (postId) => ({
-  type: DELETE_POST,
-  payload: postId,
-});
+export const deletePost = (postId) => async (dispatch) => {
+  dispatch({ type: DELETE_POST_START });
+  try {
+    const postRef = doc(db, "posts", postId);
+    await deleteDoc(postRef);
+    dispatch({ type: DELETE_POST_SUCCESS, payload: postId });
+  } catch (error) {
+    console.error("Error deleting post: ", error);
+  }
+};
 
 const postsReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -83,15 +96,24 @@ const postsReducer = (state = initialState, action) => {
     case UPDATE_POST:
       const { id, editingTitle, editingContent } = action.payload;
       return state.map((post) => {
-        if (post.postID === id) {
+        if (post.id === id) {
           return { ...post, title: editingTitle, content: editingContent };
         }
         return post;
       });
 
-    case DELETE_POST:
+    case DELETE_POST_START:
       const postID = action.payload;
-      return state.filter((post) => post.postID !== postID);
+      return {
+        ...state,
+        posts: state.posts.filter((post) => post.id !== postID),
+      };
+
+    case DELETE_POST_SUCCESS:
+      return {
+        ...state,
+        posts: state.posts.filter((post) => post.id !== action.payload),
+      };
 
     default:
       return state;
