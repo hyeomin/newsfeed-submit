@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
-import selectedBread from "../assets/빵1.jpeg";
+import selectedBread from "../assets/Bread1.jpeg";
 
 const posts = [
   {
@@ -7,6 +7,7 @@ const posts = [
     userName: "dello96",
     breadType: "saltbread",
     postTitle: "잠실에서 가장 맛있는 소금빵",
+    postContent: "개꿀맛 존맛탱",
     postImage: selectedBread,
   },
   {
@@ -14,6 +15,7 @@ const posts = [
     userName: "dello",
     breadType: "tart",
     postTitle: "마포구에서 가장 맛있는 소금빵",
+    postContent: "개꿀맛 존맛탱",
     postImage: selectedBread,
   },
   {
@@ -21,6 +23,7 @@ const posts = [
     userName: "Bella",
     breadType: "cake",
     postTitle: "장지동에서 가장 맛있는 소금빵",
+    postContent: "개꿀맛 존맛탱",
     postImage: selectedBread,
   },
   {
@@ -28,6 +31,7 @@ const posts = [
     userName: "Amos",
     breadType: "salt bread",
     postTitle: "건대에서 가장 맛있는 소금빵",
+    postContent: "개꿀맛 존맛탱",
     postImage: selectedBread,
   },
   {
@@ -35,6 +39,7 @@ const posts = [
     userName: "Steve",
     breadType: "cream bread",
     postTitle: "성수동에서 가장 맛있는 소금빵",
+    postContent: "개꿀맛 존맛탱",
     postImage: selectedBread,
   },
 ];
