@@ -14,11 +14,12 @@ function Post() {
     <>
       <OutContainer>
         <PrevBtn
-          onClick={() =>
+          onClick={() => {
             setCurrentIndex(
               currentIndex > 0 ? currentIndex - 1 : images.length - 1,
-            )
-          }
+            );
+            alert("clicked!");
+          }}
         >
           prev
         </PrevBtn>
