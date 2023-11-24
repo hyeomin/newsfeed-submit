@@ -19,19 +19,17 @@ function Post() {
   const params = useParams();
   const { posts } = useSelector((state) => state.postsReducer);
 
+  console.log("params --> ", params);
+
   useEffect(() => {
     dispatch(fetchPosts());
   }, [dispatch]);
 
-  useEffect(() => {
-    console.log("Posts--> ", posts);
-  }, [posts]);
-
   const onMoveToEditHandler = (id) => {
-    navigate;
+    navigate(`/write/${id}`);
   };
 
-  const post = posts.find((item) => item.id === params.id);
+  const post = posts.find((item) => item.id.toString() === params.id);
 
   return (
     <>
