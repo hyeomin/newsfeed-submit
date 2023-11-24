@@ -20,7 +20,8 @@ function Router() {
         <Route path="/" element={<Home users={users} setUsers={setUsers} />} />
         <Route path="/detail/:id" element={<Detail />} />
         <Route path="/mypage" element={<MyPage users={users} />} />
-        <Route path="/write" element={<Write />} />
+        <Route path="/write" element={<Write users={users} />} />
+        <Route path="/write/:id" element={<Write users={users} />} />
         <Route path="*" element={<Navigate replace to="/" />} />
         <Route
           path="/register"

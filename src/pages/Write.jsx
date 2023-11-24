@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import FileUpload from "../components/FileUpload";
 import {
   Container,
@@ -12,7 +11,7 @@ import {
 } from "../components/WriteStyledComponents";
 import { addPost, deletePost, fetchPosts } from "../redux/modules/postsReducer";
 
-function Write() {
+function Write({ users }) {
   const breadList = [
     { id: 0, name: "소금빵" },
     { id: 1, name: "크로와상" },
@@ -23,14 +22,21 @@ function Write() {
     { id: 6, name: "카스테라" },
   ];
 
-  // const [posts, setPosts] = useState([]);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [selectedBread, setSelectedBread] = useState(breadList[0].name);
-  const [editingPost, setEditingPost] = useState(null);
+
+  const [editingTitle, setEditingTitle] = useState("");
+  const [editingContent, setEditingContent] = useState("");
+  const [editingBreadType, setEditingBreadType] = useState("");
+
+  const location = useLocation();
+  const { post, isEditing } = location.state || {
+    post: null,
+    isEditing: false,
+  };
 
   const navigate = useNavigate();
-  //   const param = useParams();
   const dispatch = useDispatch();
   const { posts } = useSelector((state) => state.postsReducer);
 
@@ -49,36 +55,34 @@ function Write() {
     }
   };
 
-  const onSubmitHandler = async () => {
+  const onSubmitHandler = async (event) => {
+    event.preventDefault();
     if (title.length === 0) {
       alert("제목을 입력해주세요");
     } else if (content.length === 0) {
       alert("내용을 입력해주세요");
     } else {
-      alert("제출하시겠습니까?");
+      window.confirm("제출하시겠습니까?");
     }
     const timestamp = new Date().toISOString();
 
     const newPost = {
       postTitle: title,
       postContent: content,
-      //   userID,
-      //   userName,
+      userID: users.id,
+      userName: users.nickname,
       breadType: selectedBread,
       createdAt: timestamp,
       updatedAt: timestamp,
     };
+    console.log("new Post -->", newPost);
 
     dispatch(addPost(newPost));
 
-    // navigate("/");
+    // navigate(`/detail/${posts}`);
   };
 
-  const onActivateEditHandler = (post) => {
-    setTitle(post.title);
-    setContent(post.content);
-    setEditingPost(post);
-  };
+  const onSubmitUpdateHandler = (post) => {};
 
   const onDeleteHandler = (id) => {
     const confirmation = window.confirm("게시물을 삭제하시겠습니까?");
@@ -118,13 +122,14 @@ function Write() {
         onChange={onChangeHandler}
         placeholder="내용을 입력하세요"
       />
-
       <FileUpload />
       <Footer>
         <button onClick={() => navigate("/home")}>홈으로 돌아가기</button>
-        <button onClick={onSubmitHandler}>
-          {editingPost ? "수정 완료" : "완료"}
-        </button>
+        {isEditing ? (
+          <button onClick={onSubmitUpdateHandler}>수정 완료</button>
+        ) : (
+          <button onClick={onSubmitHandler}>완료</button>
+        )}
       </Footer>
       <div>
         <label>----여기는 test----</label>
@@ -133,9 +138,6 @@ function Write() {
             <div key={item.id}>
               <label>{item.breadType}</label>
               <span>{item.postTitle}</span>
-              <button onClick={() => onActivateEditHandler(item)}>
-                수정하기
-              </button>
               <button onClick={() => onDeleteHandler(item.id)}>삭제하기</button>
             </div>
           );

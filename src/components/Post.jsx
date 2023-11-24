@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import defaultUser from "../assets/no-image.gif";
+import { fetchPosts } from "../redux/modules/postsReducer";
 
 function Post() {
   const images = [
@@ -10,6 +13,19 @@ function Post() {
   ];
   const [currentIndex, setCurrentIndex] = useState(0);
   console.log(currentIndex);
+
+  const dispatch = useDispatch();
+  const params = useParams();
+  const { posts } = useSelector((state) => state.postsReducer);
+
+  console.log("prams--->", params);
+
+  useEffect(() => {
+    dispatch(fetchPosts());
+  }, [dispatch]);
+
+  const onMoveToEditHandler = () => {};
+
   return (
     <>
       <OutContainer>
@@ -34,6 +50,8 @@ function Post() {
             </SlideContainer>
           </Overflow>
           <Review>작성자가 쓴 텍스트 넣을 거임</Review>
+          {posts.filter((item) => item.id === params.id)}
+          {/* <button onClick={() => onMoveToEditHandler(post)}>수정하기</button> */}
         </Container>
         <NextBtn
           onClick={() =>
