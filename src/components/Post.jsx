@@ -15,9 +15,6 @@ function Post() {
       <Container>
         <Overflow>
           <SlideContainer>
-            <Slide>
-              <img src={images[currentIndex] ?? defaultUser} alt="기본이미지" />
-            </Slide>
             <PrevBtn
               onClick={() =>
                 setCurrentIndex(
@@ -27,6 +24,9 @@ function Post() {
             >
               prev
             </PrevBtn>
+            <Slide>
+              <img src={images[currentIndex] ?? defaultUser} alt="기본이미지" />
+            </Slide>
             <NextBtn
               onClick={() =>
                 setCurrentIndex(
