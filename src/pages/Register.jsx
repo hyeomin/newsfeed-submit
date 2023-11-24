@@ -78,7 +78,7 @@ export default function Register({ setUsers, users }) {
 
       setUsers(loginUser);
 
-      navigate("/mypage");
+      navigate("/");
     } catch (error) {
       console.error(error);
       alert("이메일 비밀번호를 확인해주세요");
@@ -89,7 +89,7 @@ export default function Register({ setUsers, users }) {
     await signOut(auth);
     alert("로그아웃되었습니다.");
 
-    navigate("/mypage");
+    navigate("/");
     setUsers({ isdone: false });
   };
 

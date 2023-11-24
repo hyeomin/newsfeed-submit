@@ -4,6 +4,7 @@ import { default as styled } from "styled-components";
 import breadMain from "../assets/breadMain.jpg";
 import HomePageCards from "../components/HomePageCards";
 import { GlobalStyles } from "../components/NightMode";
+import Sorting from "../components/Sorting";
 
 const HomeHeader = styled.header`
   display: flex;
@@ -64,6 +65,18 @@ const LoginBtn = styled.button`
   font-size: 20px;
   cursor: pointer;
 `;
+
+const LogOutBtn = styled.button`
+  background-color: #ffebc1;
+  border: 0px;
+  border-radius: 20px;
+  width: 100px;
+  height: 30px;
+  text-align: center;
+  font-size: 20px;
+  cursor: pointer;
+`;
+
 const ModeBtn = styled.button`
   background-color: transparent;
   border: 0px;
@@ -84,8 +97,14 @@ const SearchBtn = styled.button`
   font-size: 20px;
   cursor: pointer;
 `;
+const TopButton = styled.button`
+  cursor: pointer;
+  position: fixed;
+  width: 40px;
+  height: 40px;
+`;
 
-function Home() {
+function Home({ users, props }) {
   const [theme, setTheme] = useState("light");
   const themeToggler = () => {
     theme === "light" ? setTheme("dark") : setTheme("light");
@@ -98,13 +117,14 @@ function Home() {
     navigate("/register");
   };
   const navigateHome = () => {
-    alert("Go to Home!");
     navigate("/");
+  };
+  const MovetoTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
     <div>
-      {/* <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}> */}
       <GlobalStyles theme={theme} />
       <div>
         <HomeHeader>
@@ -117,16 +137,25 @@ function Home() {
               <PostBreadBtn onClick={navigateWriting}>
                 빵 소개하러 가기
               </PostBreadBtn>
-              <LoginBtn onClick={navigateLogin}>로그인</LoginBtn>
+              {users.isdone === false ? (
+                <LoginBtn onClick={navigateLogin}>로그인</LoginBtn>
+              ) : (
+                <>
+                  <h1>{users.nickname}님 환영합니다.</h1>
+                  <LogOutBtn onClick={navigateHome}>로그아웃</LogOutBtn>
+                </>
+              )}
               <ModeBtn onClick={themeToggler}>
                 {theme === "light" ? "🌚" : "🌞"}
               </ModeBtn>
             </Btns>
           </WrappingBtns>
         </HomeHeader>
+        {/* //여기까지 헤더부분 */}
+        <Sorting />
         <HomePageCards />
       </div>
-      {/* </ThemeProvider> */}
+      <TopButton onClick={MovetoTop} />
     </div>
   );
 }
