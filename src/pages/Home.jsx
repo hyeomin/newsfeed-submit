@@ -137,11 +137,11 @@ function Home({ users, props }) {
               <PostBreadBtn onClick={navigateWriting}>
                 빵 소개하러 가기
               </PostBreadBtn>
-              {users.isdone === false ? (
+              {users?.isdone === false ? (
                 <LoginBtn onClick={navigateLogin}>로그인</LoginBtn>
               ) : (
                 <>
-                  <h1>{users.nickname}님 환영합니다.</h1>
+                  <h1>{users?.nickname}님 환영합니다.</h1>
                   <LogOutBtn onClick={navigateHome}>로그아웃</LogOutBtn>
                 </>
               )}

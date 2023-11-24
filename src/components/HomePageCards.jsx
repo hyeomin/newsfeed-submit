@@ -2,7 +2,6 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import fakeData from "../data/fakeData";
 
 const Container = styled.section`
   display: grid;
@@ -67,13 +66,12 @@ const Content = styled.div`
 `;
 
 export default function HomePageCards() {
-  const cardData = fakeData;
+  const { posts } = useSelector((state) => state.postsReducer);
   const navigate = useNavigate();
   const navigateDetail = () => {
     navigate(`/detail/${posts.id}`);
   };
   const dispatch = useDispatch();
-  const { posts } = useSelector((state) => state.postsReducer);
 
   return (
     <Container>

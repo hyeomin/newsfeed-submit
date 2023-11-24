@@ -57,32 +57,7 @@ export default function Register({ setUsers, users }) {
       alert("이메일형식이어야합니다 .비밀번호는 6자 이상이어야합니다.");
     }
   };
-  const signIn = async (event) => {
-    event.preventDefault();
-    try {
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        email,
-        password,
-      );
-      console.log(userCredential);
-      alert("로그인 되었습니다.");
-      const user = userCredential.user;
-      const loginUser = {
-        id: user.uid,
-        email: user.email,
-        isdone: true,
-        nickname: user.displayName,
-      };
 
-      setUsers(loginUser);
-
-      navigate("/mypage");
-    } catch (error) {
-      console.error(error);
-      alert("이메일 비밀번호를 확인해주세요");
-    }
-  };
   const logOut = async (event) => {
     event.preventDefault();
     await signOut(auth);
