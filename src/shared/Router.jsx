@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
 import Detail from "../pages/Detail";
@@ -15,10 +15,10 @@ function Router() {
     isdone: false,
     nickname: "nodata",
   });
-  // useEffect(() => {
-  //   const storedUser = JSON.parse(localStorage.getItem("user"));
-  //   setUsers(storedUser);
-  // }, []);
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    setUsers(storedUser);
+  }, []);
 
   return (
     <BrowserRouter>
