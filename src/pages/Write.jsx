@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import thumbnail from "../assets/noun-thumbnail-3022241.png";
+
+import { useNavigate } from "react-router-dom";
+import FileUpload from "../components/FileUpload";
 import {
   Container,
   Footer,
   Header,
   TextArea,
-  ThumbnailContainer,
-  ThumbnailImgWrapper,
   TitleInput,
 } from "../components/WriteStyledComponents";
 import { addPost, deletePost, fetchPosts } from "../redux/modules/postsReducer";
@@ -27,10 +27,9 @@ function Write() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [selectedBread, setSelectedBread] = useState(breadList[0].name);
-
   const [editingPost, setEditingPost] = useState(null);
 
-  //   const navigate = useNavigate();
+  const navigate = useNavigate();
   //   const param = useParams();
   const dispatch = useDispatch();
   const { posts } = useSelector((state) => state.postsReducer);
@@ -91,13 +90,13 @@ function Write() {
   return (
     <Container>
       <Header>빵 리뷰 남기기</Header>
+      <TitleInput
+        name="title"
+        value={title}
+        onChange={onChangeHandler}
+        placeholder="제목을 입력하세요"
+      />
       <div>
-        <TitleInput
-          name="title"
-          value={title}
-          onChange={onChangeHandler}
-          placeholder="제목을 입력하세요"
-        />
         <label>소개하는 빵을 골라주세요: </label>
         <select
           name="selectedBread"
@@ -119,15 +118,10 @@ function Write() {
         onChange={onChangeHandler}
         placeholder="내용을 입력하세요"
       />
-      <ThumbnailContainer>
-        <ThumbnailImgWrapper>
-          <img src={thumbnail} alt="썸네일 이미지" />
-          <button>썸네일 업로드</button>
-        </ThumbnailImgWrapper>
-        <p>썸네일을 업로드 하세요</p>
-      </ThumbnailContainer>
+
+      <FileUpload />
       <Footer>
-        <button>홈으로 돌아가기</button>
+        <button onClick={() => navigate("/home")}>홈으로 돌아가기</button>
         <button onClick={onSubmitHandler}>
           {editingPost ? "수정 완료" : "완료"}
         </button>
