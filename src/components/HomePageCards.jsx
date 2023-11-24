@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { fetchPosts } from "../redux/modules/postsReducer";
 
 const Container = styled.section`
   display: grid;
@@ -66,20 +67,31 @@ const Content = styled.div`
 `;
 
 export default function HomePageCards() {
-  const { posts } = useSelector((state) => state.postsReducer);
+  // const cardData = fakeData;
   const navigate = useNavigate();
-  const navigateDetail = () => {
-    navigate(`/detail/${posts.id}`);
-  };
   const dispatch = useDispatch();
+
+  const { posts } = useSelector((state) => state.postsReducer);
+
+  useEffect(() => {
+    dispatch(fetchPosts());
+  }, [dispatch]);
+
+  const navigateDetail = (id) => {
+    navigate(`/detail/${id}`);
+  };
 
   return (
     <Container>
       <CardsWrapper>
         {posts.map((item) => {
           return (
-            <CardWrapper>
-              <Thumbnail onClick={navigateDetail}>
+            <CardWrapper
+              onClick={() => {
+                navigateDetail(item.id);
+              }}
+            >
+              <Thumbnail>
                 <img src={item.postImage} />
               </Thumbnail>
               <UserInfo>
