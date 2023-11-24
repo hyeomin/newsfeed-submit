@@ -16,7 +16,7 @@ export default function Header({ users }) {
             <>
               <h1>{users.nickname}님 환영합니다.</h1>
               <div>
-                <Button onClick={() => navigate("/register")}>로그아웃</Button>{" "}
+                <Button onClick={() => navigate("/")}>로그아웃</Button>{" "}
               </div>
             </>
           )}
