@@ -114,7 +114,7 @@ function Home({ users, props }) {
     navigate("/write");
   };
   const navigateLogin = () => {
-    navigate("/register");
+    navigate("/login");
   };
   const navigateHome = () => {
     navigate("/");
