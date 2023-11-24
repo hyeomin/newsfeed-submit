@@ -34,32 +34,38 @@ const TextArea = styled.textarea`
   font-size: 18px;
 `;
 
-const ThumbnailImgWrapper = styled.div`
+const UploadWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 
   background-color: #e9e8e8;
-  border-radius: 10%;
+  border-radius: 10px;
 
   min-width: 30px;
-  max-width: 200px;
+  max-width: 500px;
   height: 150px;
   padding: 10px;
   margin: 20px 0;
 
   & img {
-    width: 40%;
+    width: 20%;
     padding: 30px;
   }
 `;
 
-const ThumbnailContainer = styled.div`
+const UploadContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: center;
   column-gap: 20px;
+
+  width: 500px;
+  height: 200px;
+
+  border: 1px solid green;
 `;
 
 const Footer = styled.div`
@@ -83,7 +89,7 @@ export {
   Footer,
   Header,
   TextArea,
-  ThumbnailContainer,
-  ThumbnailImgWrapper,
   TitleInput,
+  UploadContainer,
+  UploadWrapper,
 };
