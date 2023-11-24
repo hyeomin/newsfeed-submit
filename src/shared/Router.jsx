@@ -1,19 +1,25 @@
 import { useState } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+
 import Detail from "../pages/Detail";
 import Home from "../pages/Home";
+import Login from "../pages/Login";
 import MyPage from "../pages/MyPage";
 import Register from "../pages/Register";
 import Write from "../pages/Write";
 
 function Router() {
   const [users, setUsers] = useState({
-    email: "없엉",
-    id: "이것도 없엉",
+    email: "nodata",
+    id: "nodata",
     isdone: false,
-    nickname: "마찬가지",
+    nickname: "nodata",
   });
-  console.log("유저스", users);
+  // useEffect(() => {
+  //   const storedUser = JSON.parse(localStorage.getItem("user"));
+  //   setUsers(storedUser);
+  // }, []);
+
   return (
     <BrowserRouter>
       <Routes>
@@ -25,6 +31,10 @@ function Router() {
         <Route
           path="/register"
           element={<Register users={users} setUsers={setUsers} />}
+        />
+        <Route
+          path="/login"
+          element={<Login users={users} setUsers={setUsers} />}
         />
       </Routes>
     </BrowserRouter>
