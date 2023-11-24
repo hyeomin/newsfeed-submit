@@ -1,21 +1,23 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-export default function Header({ isLoggedIn, users }) {
+export default function Header({ users }) {
+  const navigate = useNavigate();
   return (
     <>
       <HeadWrapper>
         <BtnWrapper>
           {users.isdone === false ? (
-            <Link to={"/register"}>
-              <Button>로그인</Button>{" "}
-            </Link>
+            <div style={{ display: "flex", flexDirection: "row" }}>
+              <Button onClick={() => navigate("/login")}>로그인</Button>{" "}
+              <Button onClick={() => navigate("/register")}>회원가입</Button>{" "}
+            </div>
           ) : (
             <>
               <h1>{users.nickname}님 환영합니다.</h1>
-              <Link to={"/register"}>
-                <Button>로그아웃</Button>{" "}
-              </Link>
+              <div>
+                <Button onClick={() => navigate("/register")}>로그아웃</Button>{" "}
+              </div>
             </>
           )}
         </BtnWrapper>
@@ -37,6 +39,7 @@ const Button = styled.button`
   font-size: large;
   border-radius: 5px;
   margin-right: 50px;
+  width: 100px;
 `;
 
 const BtnWrapper = styled.div`
