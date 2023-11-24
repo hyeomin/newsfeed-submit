@@ -1,27 +1,7 @@
-import React from "react";
-
 import styled from "styled-components";
 import Header from "../components/Header";
 
 function MyPage({ users }) {
-  const post = [
-    {
-      user_id: 1,
-
-      user_name: "jiwoo",
-
-      bread_name: "붕어빵",
-
-      createdAt: "카스테라",
-
-      updatedAt: "포켓몬빵",
-    },
-  ];
-
-  const mypost = post.filter((item) => {
-    return item.user_id === 1;
-  });
-
   return (
     <>
       <Header users={users} />
@@ -32,25 +12,16 @@ function MyPage({ users }) {
             alt="이미지 없음"
           />
         </Avarta>
-        <p>기미노나마에와?</p>
+        <p>{users.nickname}의 페이지</p>
       </AvartaNameWrapper>
       <MypageBody>
         <InputWrapper>
           <input placeholder="아무것도 쓰지마세요" />
         </InputWrapper>
         <BodyWrapper>
-          {mypost.map((item) => {
-            return (
-              <>
-                <p>{users.id}</p>
-                <p>{users.email}</p>
-                <p>{users.nickname}</p>
-                <p>{item.bread_name}</p>
-                <p>{item.createdAt}</p>
-                <p>{item.updatedAt}</p>
-              </>
-            );
-          })}
+          <p>{users.id}</p>
+          <p>{users.nickname}</p>
+          <p>{users.email}</p>
         </BodyWrapper>
       </MypageBody>
     </>

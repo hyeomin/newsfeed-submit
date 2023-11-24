@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import fakeData from "../data/fakeData";
+import { fetchPosts } from "../redux/modules/postsReducer";
 
 const Container = styled.section`
   display: grid;
@@ -19,6 +20,7 @@ const CardWrapper = styled.li`
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 200px;
 `;
 
 const Thumbnail = styled.button`
@@ -36,6 +38,7 @@ const Thumbnail = styled.button`
 `;
 
 const UserInfo = styled.div`
+  width: 200px;
   display: flex;
   flex-direction: column;
   gap: 30px;
@@ -43,13 +46,17 @@ const UserInfo = styled.div`
 const UserNameAndTime = styled.div`
   display: flex;
   flex-direction: row;
-  gap: 50px;
+  gap: 20px;
+  background-color: aqua;
+  font-size: 10px;
 `;
 
 const SelectedBread = styled.div`
   display: flex;
   flex-direction: row;
-  gap: 50px;
+  justify-content: space-between;
+  background-color: blue;
+  width: 200px;
 `;
 
 const Content = styled.div`
@@ -60,32 +67,44 @@ const Content = styled.div`
 `;
 
 export default function HomePageCards() {
-  const cardData = fakeData;
+  // const cardData = fakeData;
   const navigate = useNavigate();
-  const navigateDetail = () => {
-    navigate("/detail");
+  const dispatch = useDispatch();
+
+  const { posts } = useSelector((state) => state.postsReducer);
+
+  useEffect(() => {
+    dispatch(fetchPosts());
+  }, [dispatch]);
+
+  const navigateDetail = (id) => {
+    navigate(`/detail/${id}`);
   };
 
   return (
     <Container>
       <CardsWrapper>
-        {cardData.map((item) => {
+        {posts.map((item) => {
           return (
-            <CardWrapper>
-              <Thumbnail onClick={navigateDetail}>
+            <CardWrapper
+              onClick={() => {
+                navigateDetail(item.id);
+              }}
+            >
+              <Thumbnail>
                 <img src={item.postImage} />
               </Thumbnail>
               <UserInfo>
                 <UserNameAndTime>
-                  <p>{item.userName}</p>
-                  <time>날짜</time>
+                  <p>{item.id}</p>
+                  <time>{item.updatedAt}</time>
                 </UserNameAndTime>
                 <SelectedBread>
                   <p>{item.breadType}</p>
                   <p>🍞17</p>
                 </SelectedBread>
               </UserInfo>
-              <Content>{item.postContent}</Content>
+              <Content>{item.postTitle}</Content>
             </CardWrapper>
           );
         })}

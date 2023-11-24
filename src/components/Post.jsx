@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import defaultUser from "../assets/no-image.gif";
 import { fetchPosts } from "../redux/modules/postsReducer";
@@ -15,26 +15,34 @@ function Post() {
   console.log(currentIndex);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const params = useParams();
   const { posts } = useSelector((state) => state.postsReducer);
-
-  console.log("prams--->", params);
 
   useEffect(() => {
     dispatch(fetchPosts());
   }, [dispatch]);
 
-  const onMoveToEditHandler = () => {};
+  useEffect(() => {
+    console.log("Posts--> ", posts);
+  }, [posts]);
+
+  const onMoveToEditHandler = (id) => {
+    navigate;
+  };
+
+  const post = posts.find((item) => item.id === params.id);
 
   return (
     <>
       <OutContainer>
         <PrevBtn
-          onClick={() =>
+          onClick={() => {
             setCurrentIndex(
               currentIndex > 0 ? currentIndex - 1 : images.length - 1,
-            )
-          }
+            );
+            alert("clicked!");
+          }}
         >
           prev
         </PrevBtn>
@@ -50,8 +58,8 @@ function Post() {
             </SlideContainer>
           </Overflow>
           <Review>작성자가 쓴 텍스트 넣을 거임</Review>
-          {posts.filter((item) => item.id === params.id)}
-          {/* <button onClick={() => onMoveToEditHandler(post)}>수정하기</button> */}
+          <p>{post.postTitle}</p>
+          <button onClick={() => onMoveToEditHandler(post.id)}>수정하기</button>
         </Container>
         <NextBtn
           onClick={() =>

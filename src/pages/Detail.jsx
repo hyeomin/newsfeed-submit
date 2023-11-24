@@ -7,7 +7,7 @@ import Post from "../components/Post";
 function Detail() {
   const navigate = useNavigate();
   const navigateHome = () => {
-    navigate("/");
+    navigate(`/`);
   };
 
   const MovetoTop = () => {
@@ -25,10 +25,9 @@ function Detail() {
           <Title>여기에는 제목이 들어갈 겁니다 맛있는 빠아아아앙!!</Title>
           <Date>2023/11/22</Date>
         </Header>
-
         <Post />
       </Container>
-      <Button onClick={MovetoTop}>Top</Button>
+      <TopButton onClick={MovetoTop}>Top</TopButton>
     </>
   );
 }
@@ -66,7 +65,7 @@ const Date = styled.p`
   margin-left: 500px;
 `;
 
-const Button = styled.button`
+const TopButton = styled.button`
   cursor: pointer;
   position: fixed;
   right: 40px;

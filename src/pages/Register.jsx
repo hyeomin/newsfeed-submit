@@ -1,20 +1,19 @@
 import {
   createUserWithEmailAndPassword,
-  getAuth,
   onAuthStateChanged,
-  signInWithEmailAndPassword,
   signOut,
   updateProfile,
 } from "firebase/auth";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import styled from "styled-components";
+import { auth } from "../firebase";
 
 export default function Register({ setUsers, users }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [nickname, setNickname] = useState("");
-  const auth = getAuth();
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -89,6 +88,9 @@ export default function Register({ setUsers, users }) {
     await signOut(auth);
     alert("로그아웃되었습니다.");
 
+    navigate("/");
+    setEmail("");
+    setPassword("");
     navigate("/mypage");
     setUsers({ isdone: false });
   };
@@ -96,41 +98,54 @@ export default function Register({ setUsers, users }) {
   return (
     <BodyWrapper>
       <LoginWrapper>
-        <h2>로그인페이지</h2>
+        {users.isdone === false ? (
+          <h2>회원가입페이지</h2>
+        ) : (
+          <h2>로그아웃하시겠습니까?</h2>
+        )}
         <form>
-          <div>
-            <label>닉네임 : </label>
-            <input
-              type="text"
-              value={nickname}
-              name="displayName"
-              onChange={onChange}
-              required
-            />
-          </div>
-          <div>
-            <label>이메일 : </label>
-            <input
-              type="email"
-              value={email}
-              name="email"
-              onChange={onChange}
-              required
-            />
-          </div>
-          <div>
-            <label>비밀번호 : </label>
-            <input
-              type="password"
-              value={password}
-              name="password"
-              onChange={onChange}
-              required
-            />
-          </div>
-          <button onClick={signUp}>회원가입</button>
-          <button onClick={signIn}>로그인</button>
-          <button onClick={logOut}>로그아웃</button>
+          {users.isdone === false ? (
+            <>
+              {" "}
+              <div>
+                <label>닉네임 : </label>
+                <input
+                  type="text"
+                  value={nickname}
+                  name="displayName"
+                  onChange={onChange}
+                  required
+                />
+              </div>
+              <div>
+                <label>이메일 : </label>
+                <input
+                  type="email"
+                  value={email}
+                  name="email"
+                  onChange={onChange}
+                  required
+                />
+              </div>
+              <div>
+                <label>비밀번호 : </label>
+                <input
+                  type="password"
+                  value={password}
+                  name="password"
+                  onChange={onChange}
+                  required
+                />
+              </div>
+            </>
+          ) : null}
+          {users.isdone === false ? (
+            <button onClick={signUp}>회원가입</button>
+          ) : null}
+
+          {users.isdone === true ? (
+            <button onClick={logOut}>로그아웃</button>
+          ) : null}
         </form>
       </LoginWrapper>
     </BodyWrapper>
