@@ -17,7 +17,9 @@ function Router() {
   });
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
-    setUsers(storedUser);
+    if (storedUser) {
+      setUsers(storedUser);
+    }
   }, []);
 
   return (

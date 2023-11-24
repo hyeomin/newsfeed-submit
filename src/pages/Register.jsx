@@ -66,7 +66,7 @@ export default function Register({ setUsers, users }) {
     navigate("/");
     setEmail("");
     setPassword("");
-    navigate("/mypage");
+    navigate("/");
     setUsers({ isdone: false });
   };
 

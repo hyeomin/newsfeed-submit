@@ -1,3 +1,4 @@
+import { signOut } from "firebase/auth";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { default as styled } from "styled-components";
@@ -5,6 +6,7 @@ import breadMain from "../assets/breadMain.jpg";
 import HomePageCards from "../components/HomePageCards";
 import { GlobalStyles } from "../components/NightMode";
 import Sorting from "../components/Sorting";
+import { auth } from "../firebase";
 
 const HomeHeader = styled.header`
   display: flex;
@@ -104,14 +106,32 @@ const TopButton = styled.button`
   height: 40px;
 `;
 
-function Home({ users, props }) {
+function Home({ users, setUsers }) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [nickname, setNickname] = useState("");
+  const logOut = async (event) => {
+    event.preventDefault();
+    await signOut(auth);
+    alert("로그아웃되었습니다.");
+
+    navigate("/");
+    setEmail("");
+    setPassword("");
+    navigate("/");
+    setUsers({ isdone: false });
+  };
   const [theme, setTheme] = useState("light");
   const themeToggler = () => {
     theme === "light" ? setTheme("dark") : setTheme("light");
   };
   const navigate = useNavigate();
   const navigateWriting = () => {
-    navigate("/write");
+    if (users.isdone) {
+      navigate("/write");
+    } else {
+      alert("로그인이 필요합니다!");
+    }
   };
   const navigateLogin = () => {
     navigate("/login");
@@ -137,12 +157,12 @@ function Home({ users, props }) {
               <PostBreadBtn onClick={navigateWriting}>
                 빵 소개하러 가기
               </PostBreadBtn>
-              {users.isdone === false ? (
+              {users?.isdone === false ? (
                 <LoginBtn onClick={navigateLogin}>로그인</LoginBtn>
               ) : (
                 <>
-                  <h1>{users.nickname}님 환영합니다.</h1>
-                  <LogOutBtn onClick={navigateHome}>로그아웃</LogOutBtn>
+                  <h1>{users?.nickname}님 환영합니다.</h1>
+                  <LogOutBtn onClick={logOut}>로그아웃</LogOutBtn>
                 </>
               )}
               <ModeBtn onClick={themeToggler}>
