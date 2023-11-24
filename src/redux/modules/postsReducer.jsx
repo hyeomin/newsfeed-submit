@@ -1,10 +1,10 @@
 import {
   addDoc,
   collection,
-  deleteDoc,
   doc,
   getDocs,
   query,
+  updateDoc,
 } from "firebase/firestore";
 import { db } from "../../firebase";
 
@@ -44,20 +44,35 @@ export const addPost = (newPost) => async (dispatch) => {
   }
 };
 
-export const deletePost = (postId) => async (dispatch) => {
+export const deletePost = (postUpdate) => async (dispatch) => {
   try {
-    const postRef = doc(db, "posts", postId);
-    await deleteDoc(postRef);
-    dispatch({ type: DELETE_POST, payload: postId });
+    const postRef = doc(db, "posts", postUpdate.id);
+    const updateData = {
+      title: postUpdate.title,
+      content: postUpdate.content,
+      selectedBread: postUpdate.selectedBread,
+    };
+    await updateDoc(postRef, updateData);
+    dispatch({ type: UPDATE_POST, payload: postUpdate });
   } catch (error) {
-    console.error({ type: DELETE_POST, error });
+    console.error({ type: UPDATE_POST, error });
   }
 };
 
-export const updatePost = (post) => ({
-  type: UPDATE_POST,
-  payload: post,
-});
+export const updatePost = (postId) => async (dispatch) => {
+  try {
+    const postRef = doc(db, "posts", postId);
+    await updateDoc(postRef);
+    dispatch({ type: UPDATE_POST, payload: postId });
+  } catch (error) {
+    console.error({ type: UPDATE_POST, error });
+  }
+};
+
+// ({
+//   type: UPDATE_POST,
+//   payload: post,
+// });
 
 const postsReducer = (state = initialState, action) => {
   switch (action.type) {

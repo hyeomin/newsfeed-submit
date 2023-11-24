@@ -55,24 +55,11 @@ const UploadWrapper = styled.div`
   }
 `;
 
-const UploadContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  column-gap: 20px;
-
-  width: 500px;
-  height: 200px;
-
-  border: 1px solid green;
-`;
-
 const Footer = styled.div`
   display: flex;
   justify-content: space-between;
 
-  padding: 0 20px;
+  padding: 30px 20px;
 
   & button {
     font-size: 18px;
@@ -84,12 +71,4 @@ const Footer = styled.div`
   }
 `;
 
-export {
-  Container,
-  Footer,
-  Header,
-  TextArea,
-  TitleInput,
-  UploadContainer,
-  UploadWrapper,
-};
+export { Container, Footer, Header, TextArea, TitleInput, UploadWrapper };
