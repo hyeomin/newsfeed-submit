@@ -6,17 +6,19 @@ import { UploadContainer } from "./WriteStyledComponents";
 function FileUpload() {
   const [selectedFile, setSelectedFile] = useState(null);
 
+  const onImageSelectHandler = (event) => {
+    event.preventDefault();
+    setSelectedFile(event.target.files[0]);
+  };
+
   const onUploadImageHandler = async () => {
     const imageRef = ref(
       storage,
       `${auth.currentUser.uid}/${selectedFile.name}`,
     );
-    await uploadBytes(imageRef, selectedFile);
-  };
-
-  const onImageSelectHandler = (event) => {
-    event.preventDefault();
-    setSelectedFile(event.target.files[0]);
+    await uploadBytes(imageRef, selectedFile).then((snapshot) => {
+      alert("Uploaded a blob or file!");
+    });
   };
 
   return (

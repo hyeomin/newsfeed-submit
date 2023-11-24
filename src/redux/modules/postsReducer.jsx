@@ -1,4 +1,3 @@
-// Add these action types
 import {
   addDoc,
   collection,
@@ -9,29 +8,18 @@ import {
 } from "firebase/firestore";
 import { db } from "../../firebase";
 
-export const FETCH_POSTS_START = "FETCH_POSTS_START";
-export const FETCH_POSTS_SUCCESS = "FETCH_POSTS_SUCCESS";
-export const FETCH_POSTS_FAILURE = "FETCH_POSTS_FAILURE";
-
-export const ADD_POST_START = "ADD_POST_START";
-export const ADD_POST_SUCCESS = "ADD_POST_SUCCESS";
-export const ADD_POST_FAILURE = "ADD_POST_FAILURE";
-
-export const DELETE_POST_START = "DELETE_POST_START";
-export const DELETE_POST_SUCCESS = "DELETE_POST_SUCCESS";
-
-export const UPDATE_POST = "UPDATE_POST";
-
 const initialState = {
   posts: [],
   loading: false,
   error: null,
 };
 
-//action function
+export const FETCH_POSTS = "postsReduer/FETCH_POSTS";
+export const ADD_POST = "postsReduer/ADD_POST";
+export const DELETE_POST = "postsReduer/DELETE_POST";
+export const UPDATE_POST = "postsReduer/UPDATE_POST";
 
 export const fetchPosts = () => async (dispatch) => {
-  dispatch({ type: FETCH_POSTS_START });
   try {
     const q = query(collection(db, "posts"));
     const querySnapshot = await getDocs(q);
@@ -39,21 +27,30 @@ export const fetchPosts = () => async (dispatch) => {
       id: doc.id,
       ...doc.data(),
     }));
-    dispatch({ type: FETCH_POSTS_SUCCESS, payload: posts });
+    dispatch({ type: FETCH_POSTS, payload: posts });
   } catch (error) {
-    dispatch({ type: FETCH_POSTS_FAILURE, error });
+    dispatch({ type: FETCH_POSTS, error });
   }
 };
 
 export const addPost = (newPost) => async (dispatch) => {
-  dispatch({ type: ADD_POST_START });
   try {
     const collectionRef = collection(db, "posts");
     const docRef = await addDoc(collectionRef, newPost);
     const newPostWithID = { ...newPost, id: docRef.id };
-    dispatch({ type: ADD_POST_SUCCESS, payload: newPostWithID });
+    dispatch({ type: ADD_POST, payload: newPostWithID });
   } catch (error) {
-    dispatch({ type: ADD_POST_FAILURE, error });
+    dispatch({ type: ADD_POST, error });
+  }
+};
+
+export const deletePost = (postId) => async (dispatch) => {
+  try {
+    const postRef = doc(db, "posts", postId);
+    await deleteDoc(postRef);
+    dispatch({ type: DELETE_POST, payload: postId });
+  } catch (error) {
+    console.error({ type: DELETE_POST, error });
   }
 };
 
@@ -62,54 +59,31 @@ export const updatePost = (post) => ({
   payload: post,
 });
 
-export const deletePost = (postId) => async (dispatch) => {
-  dispatch({ type: DELETE_POST_START });
-  try {
-    const postRef = doc(db, "posts", postId);
-    await deleteDoc(postRef);
-    dispatch({ type: DELETE_POST_SUCCESS, payload: postId });
-  } catch (error) {
-    console.error("Error deleting post: ", error);
-  }
-};
-
 const postsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case FETCH_POSTS_START:
-      return { ...state, loading: true, error: null };
-    case FETCH_POSTS_SUCCESS:
+    case FETCH_POSTS:
+      if (action.error) {
+        return { ...state, loading: false, error: action.error };
+      }
       return { ...state, loading: false, posts: action.payload };
-    case FETCH_POSTS_FAILURE:
-      return { ...state, loading: false, error: action.error };
-    // ADD
-    case ADD_POST_START:
-      return { ...state, loading: true };
-    case ADD_POST_SUCCESS:
+
+    case ADD_POST:
       return {
         ...state,
         loading: false,
         posts: [action.payload, ...state.posts],
       };
-    case ADD_POST_FAILURE:
-      return { ...state, loading: false, error: action.error };
-    // OTHER
+
     case UPDATE_POST:
-      const { id, editingTitle, editingContent } = action.payload;
-      return state.map((post) => {
-        if (post.id === id) {
-          return { ...post, title: editingTitle, content: editingContent };
+      const updatedPosts = state.posts.map((post) => {
+        if (post.id === action.payload.id) {
+          return { ...post, ...action.payload };
         }
         return post;
       });
+      return { ...state, posts: updatedPosts };
 
-    case DELETE_POST_START:
-      const postID = action.payload;
-      return {
-        ...state,
-        posts: state.posts.filter((post) => post.id !== postID),
-      };
-
-    case DELETE_POST_SUCCESS:
+    case DELETE_POST:
       return {
         ...state,
         posts: state.posts.filter((post) => post.id !== action.payload),

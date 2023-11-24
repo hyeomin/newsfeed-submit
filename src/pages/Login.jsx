@@ -59,7 +59,7 @@ export default function Login({ setUsers, users }) {
 
       localStorage.setItem("user", JSON.stringify(loginUser));
 
-      navigate("/mypage");
+      navigate("/");
     } catch (error) {
       console.error(error);
       alert("이메일 비밀번호를 확인해주세요");
