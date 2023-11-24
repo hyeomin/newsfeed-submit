@@ -32,7 +32,7 @@ const WrappingBtns = styled.div`
   display: flex;
 `;
 
-const Btns = styled.button`
+const Btns = styled.div`
   margin: 20px;
   flex: 0 0 90%;
   display: flex;
