@@ -13,6 +13,16 @@ const HomeHeader = styled.header`
   flex-direction: row;
   justify-content: space-between;
 `;
+const MypageBtn = styled.button`
+  background-color: #ffebc1;
+  border: 0px;
+  border-radius: 20px;
+  width: 100px;
+  height: 100px;
+  text-align: center;
+  font-size: 20px;
+  cursor: pointer;
+`;
 
 const ButtonImg = styled.img`
   display: flex;
@@ -161,7 +171,9 @@ function Home({ users, setUsers }) {
                 <LoginBtn onClick={navigateLogin}>로그인</LoginBtn>
               ) : (
                 <>
-                  <h1>{users?.nickname}님 환영합니다.</h1>
+                  <MypageBtn onClick={() => navigate("/mypage")}>
+                    {users.nickname}의 마이페이지
+                  </MypageBtn>
                   <LogOutBtn onClick={logOut}>로그아웃</LogOutBtn>
                 </>
               )}

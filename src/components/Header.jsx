@@ -45,7 +45,9 @@ export default function Header({ users }) {
               </>
             ) : (
               <>
-                <h1>{users.nickname}님 환영합니다.</h1>
+                <MypageBtn onClick={() => navigate("/mypage")}>
+                  {users.nickname}의 마이페이지
+                </MypageBtn>
                 <LogOutBtn onClick={() => navigate("/register")}>
                   로그아웃
                 </LogOutBtn>
@@ -75,32 +77,6 @@ export default function Header({ users }) {
     </>
   );
 }
-
-// const HeadWrapper = styled.div`
-//   display: flex;
-//   justify-content: space-around;
-//   align-items: center;
-//   height: 100px;
-// `;
-
-// const Button = styled.button`
-//   background-color: black;
-//   color: white;
-//   font-size: large;
-//   border-radius: 5px;
-//   margin-right: 50px;
-//   width: 100px;
-// `;
-
-// const BtnWrapper = styled.div`
-//   background-color: yellow;
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: center;
-//   align-items: center;
-//   height: 100px;
-//   width: 200px;
-// `;
 
 const HomeHeader = styled.header`
   display: flex;
@@ -157,6 +133,16 @@ const LoginBtn = styled.button`
   border-radius: 20px;
   width: 100px;
   height: 30px;
+  text-align: center;
+  font-size: 20px;
+  cursor: pointer;
+`;
+const MypageBtn = styled.button`
+  background-color: #ffebc1;
+  border: 0px;
+  border-radius: 20px;
+  width: 100px;
+  height: 100px;
   text-align: center;
   font-size: 20px;
   cursor: pointer;
