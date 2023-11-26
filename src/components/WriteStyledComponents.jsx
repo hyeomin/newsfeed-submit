@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+const SelectContainer = styled;
+
 const Header = styled.h2`
   font-size: 40px;
   font-weight: 700;
