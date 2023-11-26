@@ -20,15 +20,20 @@ const CardWrapper = styled.li`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 200px;
+  background-color: #ffebc1;
+  border-radius: 10px;
+  width: 220px;
+  height: 320px;
 `;
 
 const Thumbnail = styled.button`
   width: 200px;
-  height: 100px;
+  height: 200px;
   overflow: hidden;
   border: 0px;
   background-color: transparent;
+  border-radius: 20px;
+  margin: 10px;
   & img {
     width: 100%;
     height: 100%;
@@ -47,7 +52,6 @@ const UserNameAndTime = styled.div`
   display: flex;
   flex-direction: row;
   gap: 20px;
-  background-color: aqua;
   font-size: 10px;
 `;
 
@@ -55,15 +59,17 @@ const SelectedBread = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  background-color: blue;
   width: 200px;
 `;
 
 const Content = styled.div`
   display: flex;
+  align-items: center;
   width: 200px;
   height: 100px;
-  background-color: yellow;
+  background-color: white;
+  border-radius: 20px;
+  margin: 10px;
 `;
 
 export default function HomePageCards() {
@@ -92,12 +98,12 @@ export default function HomePageCards() {
               }}
             >
               <Thumbnail>
-                <img src={item.postImage} />
+                <img src={item.postimage} />
               </Thumbnail>
               <UserInfo>
                 <UserNameAndTime>
                   <p>{item.id}</p>
-                  <time>{item.updatedAt}</time>
+                  <time>{item.updatedAt.substring(0, 10)}</time>
                 </UserNameAndTime>
                 <SelectedBread>
                   <p>{item.breadType}</p>

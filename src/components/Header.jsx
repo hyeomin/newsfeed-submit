@@ -36,7 +36,7 @@ export default function Header({ users }) {
             <PostBreadBtn onClick={navigateWriting}>
               빵 소개하러 가기
             </PostBreadBtn>
-            {users.isdone === false ? (
+            {users?.isdone === false ? (
               <>
                 <LoginBtn onClick={navigateLogin}>로그인</LoginBtn>
                 <LoginBtn onClick={() => navigate("/register")}>
@@ -45,8 +45,12 @@ export default function Header({ users }) {
               </>
             ) : (
               <>
-                <h1>{users.nickname}님 환영합니다.</h1>
-                <LogOutBtn onClick={() => navigate("/register")}>
+                <h1>{users?.nickname}님 환영합니다.</h1>
+                <LogOutBtn
+                  onClick={() => {
+                    navigate("/");
+                  }}
+                >
                   로그아웃
                 </LogOutBtn>
               </>
