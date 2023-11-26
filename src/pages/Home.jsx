@@ -1,4 +1,3 @@
-import { signOut } from "firebase/auth";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { default as styled } from "styled-components";
@@ -6,7 +5,6 @@ import breadMain from "../assets/breadMain.jpg";
 import HomePageCards from "../components/HomePageCards";
 import { GlobalStyles } from "../components/NightMode";
 import Sorting from "../components/Sorting";
-import { auth } from "../firebase";
 
 const HomeHeader = styled.header`
   display: flex;
@@ -120,17 +118,7 @@ function Home({ users, setUsers }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [nickname, setNickname] = useState("");
-  const logOut = async (event) => {
-    event.preventDefault();
-    await signOut(auth);
-    alert("로그아웃되었습니다.");
 
-    navigate("/");
-    setEmail("");
-    setPassword("");
-    navigate("/");
-    setUsers({ isdone: false });
-  };
   const [theme, setTheme] = useState("light");
   const themeToggler = () => {
     theme === "light" ? setTheme("dark") : setTheme("light");
@@ -174,7 +162,9 @@ function Home({ users, setUsers }) {
                   <MypageBtn onClick={() => navigate("/mypage")}>
                     {users.nickname}의 마이페이지
                   </MypageBtn>
-                  <LogOutBtn onClick={logOut}>로그아웃</LogOutBtn>
+                  <LogOutBtn onClick={() => navigate("/register")}>
+                    로그아웃
+                  </LogOutBtn>
                 </>
               )}
               <LoginBtn onClick={() => navigate("/register")}>
