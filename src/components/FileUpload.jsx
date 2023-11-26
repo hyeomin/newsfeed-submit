@@ -22,40 +22,52 @@ function FileUpload() {
   };
 
   return (
-    <div>
-      FileUpload
-      <UploadContainer>
-        {/* <img style={{ width: "100px" }} src={thumbnail} alt="썸네일 이미지" /> */}
-        <input type="file" onChange={onImageSelectHandler} />
-        <input type="file" onChange={onImageSelectHandler} />
-        <input type="file" onChange={onImageSelectHandler} />
-        <button onClick={onUploadImageHandler}>Upload</button>
-      </UploadContainer>
-    </div>
+    <UploadContainer>
+      <span>여기에 파일을 업로드 하세요</span>
+      {/* <img style={{ width: "100px" }} src={thumbnail} alt="썸네일 이미지" /> */}
+      <input type="file" onChange={onImageSelectHandler} />
+      <input type="file" onChange={onImageSelectHandler} />
+      <input type="file" onChange={onImageSelectHandler} />
+      <button onClick={onUploadImageHandler}>업로드 하기</button>
+    </UploadContainer>
   );
 }
 
 const UploadContainer = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  row-gap: 10px;
+  row-gap: 15px;
 
-  width: 500px;
-  height: 200px;
+  width: 100%;
+  margin: 20px 0;
 
-  border: 1px solid green;
-  padding: 0 30px;
+  border: 1px solid gray;
+  border-radius: 20px;
+  padding: 20px;
+
+  & span {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 10px 0;
+  }
 
   & input {
-    background-color: lightgray;
+    background-color: #eaeaea;
     width: 100%;
     column-gap: 10px;
+    font-size: 14px;
   }
 
   & button {
-    width: 100%;
+    width: 100px;
+    margin: 10px 0 10px auto;
+    padding: 5px 10px;
+
+    font-size: 15px;
+    border: 1px solid gray;
+    border-radius: 10px;
   }
 `;
 
