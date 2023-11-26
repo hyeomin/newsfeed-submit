@@ -165,6 +165,9 @@ function Home({ users, setUsers }) {
                   <LogOutBtn onClick={logOut}>로그아웃</LogOutBtn>
                 </>
               )}
+              <LoginBtn onClick={() => navigate("/register")}>
+                회원가입
+              </LoginBtn>
               <ModeBtn onClick={themeToggler}>
                 {theme === "light" ? "🌚" : "🌞"}
               </ModeBtn>
