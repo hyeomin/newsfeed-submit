@@ -15,20 +15,18 @@ function Detail() {
   };
 
   return (
-    <>
-      <Container>
-        <ButtonHome onClick={navigateHome}>Home</ButtonHome>
-        <Header>
-          <ProfileImg>
-            <img src={null ?? defaultUser} alt="프로필이미지" />
-          </ProfileImg>
-          <Title>여기에는 제목이 들어갈 겁니다 맛있는 빠아아아앙!!</Title>
-          <Date>2023/11/22</Date>
-        </Header>
-        <Post />
-      </Container>
+    <Container>
+      <ButtonHome onClick={navigateHome}>Home</ButtonHome>
+      <Header>
+        <ProfileImg>
+          <img src={null ?? defaultUser} alt="프로필이미지" />
+        </ProfileImg>
+        {/* <Title>여기에는 제목이 들어갈 겁니다 맛있는 빠아아아앙!!</Title> */}
+        {/* <Date>2023/11/22</Date> */}
+      </Header>
+      <Post />
       <TopButton onClick={MovetoTop}>Top</TopButton>
-    </>
+    </Container>
   );
 }
 

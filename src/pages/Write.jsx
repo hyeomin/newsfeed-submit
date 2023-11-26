@@ -1,14 +1,8 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
+import styled from "styled-components";
 import FileUpload from "../components/FileUpload";
-import {
-  Container,
-  Footer,
-  Header,
-  TextArea,
-  TitleInput,
-} from "../components/WriteStyledComponents";
 import {
   addPost,
   deletePost,
@@ -106,15 +100,9 @@ function Write({ users }) {
 
   return (
     <Container>
-      <Header>빵 리뷰 남기기</Header>
-      <TitleInput
-        name="title"
-        value={title}
-        onChange={onChangeHandler}
-        placeholder="제목을 입력하세요"
-      />
-      <div>
-        <label>소개하는 빵을 골라주세요: </label>
+      {/* <Header /> */}
+      <SelectContainer className="select-bread">
+        <label>내가 소개하고 싶은 빵은 </label>
         <select
           name="selectedBread"
           value={selectedBread}
@@ -128,7 +116,14 @@ function Write({ users }) {
             );
           })}
         </select>
-      </div>
+      </SelectContainer>
+      <TitleInput
+        name="title"
+        value={title}
+        onChange={onChangeHandler}
+        placeholder="제목을 입력하세요"
+      />
+
       <TextArea
         name="content"
         value={content}
@@ -144,20 +139,79 @@ function Write({ users }) {
           <button onClick={onSubmitHandler}>완료</button>
         )}
       </Footer>
-      <div>
-        <label>----여기는 test----</label>
-        {posts.map((item) => {
-          return (
-            <div key={item.id}>
-              <label>{item.breadType}</label>
-              <span>{item.postTitle}</span>
-              <button onClick={() => onDeleteHandler(item.id)}>삭제하기</button>
-            </div>
-          );
-        })}
-      </div>
     </Container>
   );
 }
 
 export default Write;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 800px;
+
+  margin: 200px auto;
+`;
+
+const SelectContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  column-gap: 20px;
+  font-size: 20px;
+
+  & select {
+    background-color: #eaeaea;
+    font-size: 18px;
+    border-radius: 20px;
+    padding: 5px 20px;
+  }
+`;
+
+const TitleInput = styled.input`
+  width: 100%;
+  height: 30px;
+  padding: 30px 20px;
+  margin: 20px 0;
+
+  font-size: 20px;
+
+  background-color: #eaeaea;
+  border: 1px solid gray;
+  border-radius: 10px;
+`;
+
+const TextArea = styled.textarea`
+  min-height: 300px;
+  width: 100%;
+
+  padding: 30px 20px;
+  margin: 20px 0;
+  font-size: 20px;
+
+  background-color: #eaeaea;
+  border: 1px solid gray;
+  border-radius: 10px;
+`;
+
+const Footer = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+  padding: 30px 20px;
+
+  & button {
+    font-size: 18px;
+    height: 40px;
+    padding: 0 20px;
+    border-radius: 10px;
+    border: transparent;
+    cursor: pointer;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+`;
