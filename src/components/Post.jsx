@@ -12,7 +12,6 @@ function Post() {
     "https://cdn.paris.spl.li/wp-content/uploads/574786-%EB%B0%A4%EC%86%8C%EB%B3%B4%EB%A3%A8-%EB%A7%98%EB%AA%A8%EC%8A%A4_%EC%8D%B8%EB%84%A4%EC%9D%BC3.jpg",
   ];
   const [currentIndex, setCurrentIndex] = useState(0);
-  console.log(currentIndex);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
