@@ -32,6 +32,7 @@ export default function Header({ users }) {
         </ImgButton>
         <WrappingBtns>
           <Btns>
+            <SearchInput type="text"></SearchInput>
             <SearchBtn>🔍</SearchBtn>
             <PostBreadBtn onClick={navigateWriting}>
               빵 소개하러 가기
@@ -167,6 +168,11 @@ const ModeBtn = styled.button`
   text-align: center;
   font-size: 20px;
   cursor: pointer;
+`;
+
+const SearchInput = styled.input`
+  width: 300px;
+  height: 100px;
 `;
 
 const SearchBtn = styled.button`

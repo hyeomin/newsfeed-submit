@@ -90,30 +90,34 @@ export default function HomePageCards() {
   return (
     <Container>
       <CardsWrapper>
-        {posts.map((item) => {
-          return (
-            <CardWrapper
-              onClick={() => {
-                navigateDetail(item.id);
-              }}
-            >
-              <Thumbnail>
-                <img src={item.postimage} />
-              </Thumbnail>
-              <UserInfo>
-                <UserNameAndTime>
-                  <p>{item.nickname}</p>
-                  <time>{item.updatedAt.substring(0, 10)}</time>
-                </UserNameAndTime>
-                <SelectedBread>
-                  <p>{item.breadType}</p>
-                  <p>🍞17</p>
-                </SelectedBread>
-              </UserInfo>
-              <Content>{item.postTitle}</Content>
-            </CardWrapper>
-          );
-        })}
+        {posts
+          .map((item) => {
+            return (
+              <CardWrapper
+                onClick={() => {
+                  navigateDetail(item.id);
+                }}
+              >
+                <Thumbnail>
+                  <img src={item.postimage} />
+                </Thumbnail>
+                <UserInfo>
+                  <UserNameAndTime>
+                    <p>{item.nickname}</p>
+                    <time>{item.updatedAt.substring(0, 10)}</time>
+                  </UserNameAndTime>
+                  <SelectedBread>
+                    <p>{item.breadType}</p>
+                    <p>🍞17</p>
+                  </SelectedBread>
+                </UserInfo>
+                <Content>{item.postTitle}</Content>
+              </CardWrapper>
+            );
+          })
+          .sort(function (a, b) {
+            return a - b;
+          })}
       </CardsWrapper>
     </Container>
   );

@@ -70,10 +70,9 @@ export default function Register({ setUsers, users }) {
       isdone: false,
       nickname: "noData",
     };
-    console.log(localStorage.getItem("user"));
-    localStorage.removeItem("user");
+    localStorage.setItem("user", JSON.stringify(logoutUser));
     alert("로그아웃되었습니다!");
-    await signOut();
+    await signOut(auth);
     navigate("/");
   };
 
