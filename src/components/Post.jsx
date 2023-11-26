@@ -219,6 +219,11 @@ const Footer = styled.footer`
 
     border: 1px solid lightgray;
     border-radius: 10px;
+    cursor: pointer;
+
+    &:hover {
+      transform: scale(1.05);
+    }
   }
 `;
 

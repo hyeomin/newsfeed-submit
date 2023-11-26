@@ -209,5 +209,9 @@ const Footer = styled.div`
     border-radius: 10px;
     border: transparent;
     cursor: pointer;
+
+    &:hover {
+      transform: scale(1.05);
+    }
   }
 `;
