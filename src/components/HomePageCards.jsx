@@ -102,7 +102,7 @@ export default function HomePageCards() {
               </Thumbnail>
               <UserInfo>
                 <UserNameAndTime>
-                  <p>{item.id}</p>
+                  <p>{item.nickname}</p>
                   <time>{item.updatedAt.substring(0, 10)}</time>
                 </UserNameAndTime>
                 <SelectedBread>

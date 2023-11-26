@@ -6,7 +6,6 @@ import breadMain from "../assets/breadMain.jpg";
 import HomePageCards from "../components/HomePageCards";
 import { GlobalStyles } from "../components/NightMode";
 import Sorting from "../components/Sorting";
-import { auth } from "../firebase";
 
 const HomeHeader = styled.header`
   display: flex;
@@ -122,13 +121,15 @@ function Home({ users, setUsers }) {
   const [nickname, setNickname] = useState("");
   const logOut = async (event) => {
     event.preventDefault();
-    await signOut(auth);
-    alert("로그아웃되었습니다.");
+    localStorage.removeItem("user");
+    alert("로그아웃되었습니다!");
+    await signOut();
 
     navigate("/");
     setEmail("");
     setPassword("");
     navigate("/");
+
     setUsers({ isdone: false });
   };
   const [theme, setTheme] = useState("light");
