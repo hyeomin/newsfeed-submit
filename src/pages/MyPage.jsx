@@ -1,28 +1,119 @@
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Header from "../components/Header";
+import { auth } from "../firebase";
+import { fetchPosts } from "../redux/modules/postsReducer";
 
 function MyPage({ users }) {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { posts } = useSelector((state) => state.postsReducer);
+
+  useEffect(() => {
+    dispatch(fetchPosts());
+  }, [dispatch]);
+
+  const navigateDetail = (id) => {
+    navigate(`/detail/${id}`);
+  };
+
+  const [image, setImage] = useState(
+    "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzA4MTlfMTgy%2FMDAxNjkyMzk0OTY2NTQx.kcqRj3Tf9RD5663NiKYV95dPN9YlyRfKPs0Re8S12Xcg.WbcFWteQCwRqC61R4PiAVZzD3XOfBtyDM5UvVwANwpgg.PNG.jjungaang%2Fpfp%25A3%25DFultraviolet%25A3%25DFuzubaong.png&type=sc960_832",
+  );
+  const [currentUser, setCurrentUser] = useState(users.isdone);
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setCurrentUser(user);
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
+  // const imageChange = () => {
+  //   if (currentUser) {
+  //     currentUser
+  //       .updateProfile({
+  //         photoURL: image,
+  //       })
+  //       .then(() => {
+  //         alert("프로필 사진이 업데이트되었습니다.");
+  //         console.log("프로필 사진이 업데이트되었습니다.");
+  //       })
+  //       .catch((error) => {
+  //         alert("프로필 사진 업데이트 오류");
+  //         console.error("프로필 사진 업데이트 오류:", error);
+  //       });
+  //   } else {
+  //     alert("사용자가 로그인되어 있지 않습니다.");
+  //     console.error("사용자가 로그인되어 있지 않습니다.");
+  //   }
+  // };
+  console.log("이게포스츠", posts);
+  const myposts = posts.filter((item) => {
+    return item.id === users.id;
+  });
+
   return (
     <>
       <Header users={users} />
       <AvartaNameWrapper>
         <Avarta>
           <img
-            src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzA4MTlfMTgy%2FMDAxNjkyMzk0OTY2NTQx.kcqRj3Tf9RD5663NiKYV95dPN9YlyRfKPs0Re8S12Xcg.WbcFWteQCwRqC61R4PiAVZzD3XOfBtyDM5UvVwANwpgg.PNG.jjungaang%2Fpfp%25A3%25DFultraviolet%25A3%25DFuzubaong.png&type=sc960_832"
-            alt="이미지 없음"
+            src={currentUser ? currentUser.photoURL : ""}
+            alt="프로필 사진"
           />
         </Avarta>
         <AvartaName>{users.nickname}</AvartaName>
       </AvartaNameWrapper>
       <MypageBody>
         <InputWrapper>
-          <input type="file" accept="image/*" />
-          <input placeholder="아무것도 쓰지마세요" />
+          <input
+            value={image}
+            onChange={(e) => {
+              setImage(e.target.value);
+            }}
+            type="text"
+            placeholder="새로운 프로필 사진 URL 입력"
+          />
+          {/* <button onClick={imageChange}>이미지 변경</button> */}
         </InputWrapper>
         <BodyWrapper>
           <p>{users.id}</p>
           <p>{users.nickname}</p>
           <p>{users.email}</p>
+          <Container>
+            <CardsWrapper>
+              {myposts.map((item) => {
+                return (
+                  <CardWrapper
+                    onClick={() => {
+                      navigateDetail(item.id);
+                    }}
+                  >
+                    <Thumbnail>
+                      <img src={item.postImage} />
+                    </Thumbnail>
+                    <UserInfo>
+                      <UserNameAndTime>
+                        <p>{item.id}</p>
+                        <time>{item.updatedAt}</time>
+                      </UserNameAndTime>
+                      <SelectedBread>
+                        <p>{item.breadType}</p>
+                        <p>🍞17</p>
+                      </SelectedBread>
+                    </UserInfo>
+                    <Content>{item.postTitle}</Content>
+                  </CardWrapper>
+                );
+              })}
+            </CardsWrapper>
+          </Container>
         </BodyWrapper>
       </MypageBody>
     </>
@@ -41,6 +132,13 @@ const AvartaNameWrapper = styled.div`
 const Avarta = styled.figure`
   border-radius: 50%;
   overflow: hidden;
+  width: 100px;
+  height: 100px;
+  & img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 `;
 
 const MypageBody = styled.body`
@@ -61,4 +159,65 @@ const BodyWrapper = styled.div`
 const AvartaName = styled.p`
   font-size: 30px;
   margin-left: 10px;
+`;
+const Container = styled.section`
+  display: grid;
+`;
+
+const CardsWrapper = styled.ul`
+  margin: 50px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 100px;
+  border-radius: 12px;
+`;
+
+const CardWrapper = styled.li`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 200px;
+`;
+
+const Thumbnail = styled.button`
+  width: 200px;
+  height: 100px;
+  overflow: hidden;
+  border: 0px;
+  background-color: transparent;
+  & img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  cursor: pointer;
+`;
+
+const UserInfo = styled.div`
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+`;
+const UserNameAndTime = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  background-color: aqua;
+  font-size: 10px;
+`;
+
+const SelectedBread = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: blue;
+  width: 200px;
+`;
+
+const Content = styled.div`
+  display: flex;
+  width: 200px;
+  height: 100px;
+  background-color: yellow;
 `;

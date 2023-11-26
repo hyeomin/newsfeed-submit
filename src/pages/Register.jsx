@@ -68,6 +68,14 @@ export default function Register({ setUsers, users }) {
     setPassword("");
     navigate("/");
     setUsers({ isdone: false });
+    const logoutUser = {
+      id: "noData",
+      email: "noData",
+      isdone: false,
+      nickname: "noData",
+    };
+
+    localStorage.setItem("user", JSON.stringify(logoutUser));
   };
 
   return (
