@@ -60,7 +60,7 @@ function Write({ users }) {
     }
   };
 
-  const onSubmitHandler = (event) => {
+  const onSubmitHandler = async (event) => {
     event.preventDefault();
     if (title.length === 0) {
       alert("제목을 입력해주세요");
@@ -80,15 +80,24 @@ function Write({ users }) {
       createdAt: timestamp,
       updatedAt: timestamp,
     };
-    console.log("new Post -->", newPost);
 
-    dispatch(addPost(newPost));
+    const postId = await dispatch(addPost(newPost));
 
-    navigate(`/detail/${param.id}`);
+    if (postId) {
+      navigate(`/detail/${postId}`);
+    }
   };
 
-  const onSubmitUpdateHandler = (event) => {
-    dispatch(updatePost({ id: post.id, title, content, selectedBread }));
+  const onSubmitUpdateHandler = () => {
+    const updatedPostData = {
+      postTitle: title,
+      postContent: content,
+      breadType: selectedBread,
+    };
+
+    dispatch(updatePost(post.id, updatedPostData));
+
+    navigate(`/detail/${post.id}`);
   };
 
   const onDeleteHandler = (id) => {
@@ -98,10 +107,9 @@ function Write({ users }) {
     }
   };
 
-  console.log("users-->", users);
-
   return (
     <Container>
+      {/* <Header /> */}
       <SelectContainer className="select-bread">
         <label>내가 소개하고 싶은 빵은 </label>
         <select
@@ -135,7 +143,9 @@ function Write({ users }) {
       <Footer>
         <button onClick={() => navigate("/home")}>홈으로 돌아가기</button>
         {isEditing && post ? (
-          <button onClick={onSubmitUpdateHandler}>수정 완료</button>
+          <button onClick={() => onSubmitUpdateHandler(post.id)}>
+            수정 완료
+          </button>
         ) : (
           <button onClick={onSubmitHandler}>완료</button>
         )}
