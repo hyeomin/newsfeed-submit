@@ -98,9 +98,10 @@ function Write({ users }) {
     }
   };
 
+  console.log("users-->", users);
+
   return (
     <Container>
-      {/* <Header /> */}
       <SelectContainer className="select-bread">
         <label>내가 소개하고 싶은 빵은 </label>
         <select
