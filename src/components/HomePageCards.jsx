@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { fetchPosts } from "../redux/modules/postsReducer";
+import TopButton from "./TopButton";
 
 const Container = styled.section`
   display: grid;
@@ -11,7 +12,7 @@ const Container = styled.section`
 const CardsWrapper = styled.ul`
   margin: 50px;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 100px;
   border-radius: 12px;
 `;
@@ -119,6 +120,7 @@ export default function HomePageCards() {
             return a - b;
           })}
       </CardsWrapper>
+      <TopButton />
     </Container>
   );
 }

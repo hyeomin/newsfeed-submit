@@ -12,12 +12,6 @@ const HomeHeader = styled.header`
   justify-content: space-between;
 `;
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
 const MypageBtn = styled.button`
   background-color: #ffebc1;
   border: 0px;
@@ -117,17 +111,10 @@ const SearchBtn = styled.button`
 
 const SearchInput = styled.input`
   display: flex;
-  width: 700px;
+  width: auto;
   height: 35px;
   border-radius: 30px;
   padding: 10px;
-`;
-
-const TopButton = styled.button`
-  cursor: pointer;
-  width: 40px;
-  height: 40px;
-  position: fixed;
 `;
 
 function Home({ users, setUsers }) {
@@ -160,7 +147,7 @@ function Home({ users, setUsers }) {
   return (
     <div>
       <GlobalStyles theme={theme} />
-      <Container>
+      <div>
         <HomeHeader>
           <ImgButton onClick={navigateHome}>
             <ButtonImg src={breadMain} />
@@ -196,8 +183,7 @@ function Home({ users, setUsers }) {
         {/* //여기까지 헤더부분 */}
         <Sorting />
         <HomePageCards />
-        <TopButton onClick={MovetoTop}>MoveTop</TopButton>
-      </Container>
+      </div>
     </div>
   );
 }
