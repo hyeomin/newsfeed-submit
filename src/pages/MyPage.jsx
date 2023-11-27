@@ -22,7 +22,8 @@ function MyPage({ users }) {
   const [image, setImage] = useState("");
   const [currentUser, setCurrentUser] = useState(auth.currentUser);
   const [browserImage, setBroswerImage] = useState(
-    "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzA4MTlfMTgy%2FMDAxNjkyMzk0OTY2NTQx.kcqRj3Tf9RD5663NiKYV95dPN9YlyRfKPs0Re8S12Xcg.WbcFWteQCwRqC61R4PiAVZzD3XOfBtyDM5UvVwANwpgg.PNG.jjungaang%2Fpfp%25A3%25DFultraviolet%25A3%25DFuzubaong.png&type=sc960_832",
+    localStorage.getItem("image") ??
+      "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzEwMTRfMjUy%2FMDAxNjk3MjYwNDIyNzQ2.adQvLWojNfuSgl5a572Rw8Nnlo0zI_fr2xIGTCCi-9Eg.Lu2APkbKHhX2ZoJO3PeA7vNYcUq_V9I4wOkix4xsSw8g.PNG.leeseongjae620%2Fpikachuvector.png&type=a340",
   );
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -39,25 +40,27 @@ function MyPage({ users }) {
   }, []);
 
   const imageChange = () => {
-    if (currentUser) {
-      currentUser
-        .updateProfile({
-          photoURL: image,
-        })
-        .then(() => {
-          alert("프로필 사진이 업데이트되었습니다.");
-          console.log("프로필 사진이 업데이트되었습니다.");
-        })
-        .catch((error) => {
-          alert("프로필 사진 업데이트 오류");
-          console.error("프로필 사진 업데이트 오류:", error);
-        });
-    } else {
-      alert("사용자가 로그인되어 있지 않습니다.");
-      console.error("사용자가 로그인되어 있지 않습니다.");
-    }
+    // if (currentUser) {
+    //   console.log("커런트유저", currentUser);
+    //   currentUser
+    //     .updateProfile({
+    //       photoURL: image,
+    //     })
+    //     .then(() => {
+    //       alert("프로필 사진이 업데이트되었습니다.");
+    //       console.log("프로필 사진이 업데이트되었습니다.");
+    //     })
+    //     .catch((error) => {
+    //       alert("프로필 사진 업데이트 오류");
+    //       console.error("프로필 사진 업데이트 오류:", error);
+    //     });
+    // } else {
+    //   alert("사용자가 로그인되어 있지 않습니다.");
+    //   console.error("사용자가 로그인되어 있지 않습니다.");
+    // }
 
     setBroswerImage(image);
+    localStorage.setItem("image", image);
   };
   console.log("이게포스츠", posts);
   const myposts = posts.filter((item) => {
@@ -79,7 +82,7 @@ function MyPage({ users }) {
       <MypageBody>
         <InputWrapper>
           <input
-            value={""}
+            value={image}
             onChange={(e) => {
               setImage(e.target.value);
             }}
@@ -140,6 +143,7 @@ const Avarta = styled.figure`
   overflow: hidden;
   width: 100px;
   height: 100px;
+  margin: 20px 0;
   & img {
     width: 100%;
     height: 100%;
