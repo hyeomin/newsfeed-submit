@@ -59,13 +59,9 @@ export default function Register({ setUsers, users }) {
 
   const logOut = async (event) => {
     event.preventDefault();
-    await signOut(auth);
-    alert("로그아웃되었습니다.");
 
-    navigate("/");
     setEmail("");
     setPassword("");
-    navigate("/");
     setUsers({ isdone: false });
     const logoutUser = {
       id: "noData",
@@ -73,8 +69,10 @@ export default function Register({ setUsers, users }) {
       isdone: false,
       nickname: "noData",
     };
-
     localStorage.setItem("user", JSON.stringify(logoutUser));
+    alert("로그아웃되었습니다!");
+    await signOut(auth);
+    navigate("/");
   };
 
   return (

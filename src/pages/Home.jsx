@@ -107,6 +107,15 @@ const SearchBtn = styled.button`
   font-size: 20px;
   cursor: pointer;
 `;
+
+const SearchInput = styled.input`
+  display: flex;
+  width: 700px;
+  height: 35px;
+  border-radius: 30px;
+  padding: 10px;
+`;
+
 const TopButton = styled.button`
   cursor: pointer;
   position: fixed;
@@ -151,6 +160,7 @@ function Home({ users, setUsers }) {
           </ImgButton>
           <WrappingBtns>
             <Btns>
+              <SearchInput />
               <SearchBtn>🔍</SearchBtn>
               <PostBreadBtn onClick={navigateWriting}>
                 빵 소개하러 가기
