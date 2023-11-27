@@ -92,6 +92,7 @@ export default function HomePageCards() {
     <Container>
       <CardsWrapper>
         {posts
+          .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt))
           .map((item) => {
             return (
               <CardWrapper

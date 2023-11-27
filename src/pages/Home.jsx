@@ -60,8 +60,8 @@ const PostBreadBtn = styled.button`
   background-color: #ffebc1;
   border: 0px;
   border-radius: 20px;
-  width: 170px;
-  height: 30px;
+  width: 400px;
+  height: 50px;
   text-align: center;
   font-size: 20px;
   cursor: pointer;
@@ -70,7 +70,7 @@ const LoginBtn = styled.button`
   background-color: #ffebc1;
   border: 0px;
   border-radius: 20px;
-  width: 100px;
+  width: 200px;
   height: 30px;
   text-align: center;
   font-size: 20px;
@@ -81,7 +81,7 @@ const LogOutBtn = styled.button`
   background-color: #ffebc1;
   border: 0px;
   border-radius: 20px;
-  width: 100px;
+  width: 200px;
   height: 30px;
   text-align: center;
   font-size: 20px;
