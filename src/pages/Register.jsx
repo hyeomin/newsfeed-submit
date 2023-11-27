@@ -90,7 +90,7 @@ export default function Register({ setUsers, users }) {
           {users.isdone === false ? (
             <>
               {" "}
-              <div>
+              <Inputwrapper>
                 <label>닉네임 : </label>
                 <input
                   type="text"
@@ -99,8 +99,8 @@ export default function Register({ setUsers, users }) {
                   onChange={onChange}
                   required
                 />
-              </div>
-              <div>
+              </Inputwrapper>
+              <Inputwrapper>
                 <label>이메일 : </label>
                 <input
                   type="email"
@@ -109,8 +109,8 @@ export default function Register({ setUsers, users }) {
                   onChange={onChange}
                   required
                 />
-              </div>
-              <div>
+              </Inputwrapper>
+              <Inputwrapper>
                 <label>비밀번호 : </label>
                 <input
                   type="password"
@@ -119,7 +119,7 @@ export default function Register({ setUsers, users }) {
                   onChange={onChange}
                   required
                 />
-              </div>
+              </Inputwrapper>
             </>
           ) : null}
           {users.isdone === false ? (
@@ -135,29 +135,54 @@ export default function Register({ setUsers, users }) {
   );
 }
 
-const Div = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 800px;
-`;
 const LoginWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #fff1f0;
+
   border: 1px solid black;
   border-radius: 5px;
   width: 400px;
   height: 300px;
   gap: 20px;
+  & form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    padding: 10px;
+  }
   & h2 {
     font-size: 30px;
   }
   & button {
-    background-color: black;
-    color: white;
+    background-color: #ccb100;
+    color: black;
+    cursor: pointer;
+    margin: 10px 0px;
+    height: 40px;
+    width: 100px;
+    border-radius: 5px;
+    width: 100%;
   }
 `;
-const BodyWrapper = styled.div``;
+const BodyWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 500px;
+`;
+
+const Inputwrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+  & input {
+    background-color: #ededed;
+    border-radius: 1px;
+    border: 1px solid white;
+  }
+`;

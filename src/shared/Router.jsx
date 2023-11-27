@@ -14,6 +14,7 @@ function Router() {
     id: "nodata",
     isdone: false,
     nickname: "nodata",
+    
   });
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
