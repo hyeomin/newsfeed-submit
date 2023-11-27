@@ -91,7 +91,7 @@ const LogOutBtn = styled.button`
 const ModeBtn = styled.button`
   background-color: transparent;
   border: 0px;
-  width: 100px;
+  /* width: 100px; */
   height: 30px;
   text-align: center;
   font-size: 20px;
@@ -102,8 +102,8 @@ const SearchBtn = styled.button`
   background-color: #ffebc1;
   border: 0px;
   border-radius: 20px;
-  width: 80px;
   height: 30px;
+  padding: 0 20px;
   text-align: center;
   font-size: 20px;
   cursor: pointer;
@@ -111,7 +111,7 @@ const SearchBtn = styled.button`
 
 const SearchInput = styled.input`
   display: flex;
-  width: auto;
+  width: 100%;
   height: 35px;
   border-radius: 30px;
   padding: 10px;

@@ -1,9 +1,9 @@
 import { ref, uploadBytes } from "firebase/storage";
 import { useState } from "react";
 import styled from "styled-components";
-import { auth, storage } from "../firebase";
+import { storage } from "../firebase";
 
-function FileUpload() {
+function FileUpload({ postId }) {
   const [selectedFile, setSelectedFile] = useState(null);
 
   const onImageSelectHandler = (event) => {
@@ -12,10 +12,12 @@ function FileUpload() {
   };
 
   const onUploadImageHandler = async () => {
-    const imageRef = ref(
-      storage,
-      `${auth.currentUser.uid}/${selectedFile.name}`,
-    );
+    if (!selectedFile) {
+      alert("Please select a file first.");
+      return;
+    }
+
+    const imageRef = ref(storage, `posts/${postId}/${selectedFile.name}`);
     await uploadBytes(imageRef, selectedFile).then((snapshot) => {
       alert("Uploaded a blob or file!");
     });
