@@ -24,6 +24,8 @@ export default function Header({ users }) {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  console.log(users);
+
   return (
     <>
       <HomeHeader>
