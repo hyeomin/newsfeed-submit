@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import defaultUser from "../assets/no-image.gif";
-import { fetchPosts } from "../redux/modules/postsReducer";
+import { deletePost, fetchPosts } from "../redux/modules/postsReducer";
 
 function Post() {
   const images = [
@@ -24,6 +24,13 @@ function Post() {
 
   const onMoveToEditHandler = (id) => {
     navigate(`/write/${id}`, { state: { post, isEditing: true } });
+  };
+
+  const onDeleteHandler = (id) => {
+    const confirmation = window.confirm("게시물을 삭제하시겠습니까?");
+    if (confirmation) {
+      dispatch(deletePost(id));
+    }
   };
 
   const post = posts.find((item) => item.id === params.id);
@@ -80,7 +87,10 @@ function Post() {
 
       <Footer className="footer">
         <button onClick={() => navigate(`/`)}>홈으로 가기</button>
-        <button onClick={() => onMoveToEditHandler(post.id)}>수정하기</button>
+        <UpdateButtonWrapper>
+          <button onClick={() => onMoveToEditHandler(post.id)}>수정하기</button>
+          <button onClick={() => onDeleteHandler(post.id)}>삭제하기</button>
+        </UpdateButtonWrapper>
       </Footer>
     </Container>
   );
@@ -192,4 +202,8 @@ const Footer = styled.footer`
       transform: scale(1.05);
     }
   }
+`;
+const UpdateButtonWrapper = styled.div`
+  display: flex;
+  column-gap: 10px;
 `;
