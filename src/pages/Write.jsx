@@ -3,12 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import FileUpload from "../components/FileUpload";
-import {
-  addPost,
-  deletePost,
-  fetchPosts,
-  updatePost,
-} from "../redux/modules/postsReducer";
+import { addPost, fetchPosts, updatePost } from "../redux/modules/postsReducer";
 
 function Write({ users }) {
   const breadList = [
@@ -98,13 +93,6 @@ function Write({ users }) {
     dispatch(updatePost(post.id, updatedPostData));
 
     navigate(`/detail/${post.id}`);
-  };
-
-  const onDeleteHandler = (id) => {
-    const confirmation = window.confirm("게시물을 삭제하시겠습니까?");
-    if (confirmation) {
-      dispatch(deletePost(id));
-    }
   };
 
   return (
