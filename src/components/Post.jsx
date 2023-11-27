@@ -45,7 +45,7 @@ function Post() {
   return (
     <Container>
       <PostContainer className="post-container">
-        <ImgContainer className="iamge-section">
+        <ImgContainer className="image-section">
           <img src={images[currentIndex] ?? defaultUser} alt="기본이미지" />
           <ButtonContainer className="button-container">
             <button
@@ -74,7 +74,7 @@ function Post() {
           <p>{formattedDate(post.createdAt)}</p>
           <p>소개할 빵: {post.breadType}</p>
           <p>{post.userName}</p>
-          <Content className="post-content">{post.content}</Content>
+          <Content className="post-content">{post.postContent}</Content>
         </TextContainer>
       </PostContainer>
 
@@ -168,6 +168,10 @@ const Content = styled.div`
   height: 300px;
 
   background-color: #e7e6e6;
+  border-radius: 20px;
+  padding: 20px;
+
+  font-size: 18px;
 `;
 
 const Footer = styled.footer`
