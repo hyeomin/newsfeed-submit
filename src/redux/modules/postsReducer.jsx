@@ -39,8 +39,10 @@ export const addPost = (newPost) => async (dispatch) => {
     const docRef = await addDoc(collectionRef, newPost);
     const newPostWithID = { ...newPost, id: docRef.id };
     dispatch({ type: ADD_POST, payload: newPostWithID });
+    return docRef.id; // Return the new post's ID
   } catch (error) {
     dispatch({ type: ADD_POST, error });
+    return null; // Return null or handle the error as needed
   }
 };
 
@@ -59,20 +61,25 @@ export const deletePost = (postUpdate) => async (dispatch) => {
   }
 };
 
-export const updatePost = (postId) => async (dispatch) => {
+// export const updatePost = (postId) => async (dispatch) => {
+//   try {
+//     const postRef = doc(db, "posts", postId);
+//     await updateDoc(postRef);
+//     dispatch({ type: UPDATE_POST, payload: postId });
+//   } catch (error) {
+//     console.error({ type: UPDATE_POST, error });
+//   }
+// };
+
+export const updatePost = (postId, updatedData) => async (dispatch) => {
   try {
     const postRef = doc(db, "posts", postId);
-    await updateDoc(postRef);
-    dispatch({ type: UPDATE_POST, payload: postId });
+    await updateDoc(postRef, updatedData);
+    dispatch({ type: UPDATE_POST, payload: updatedData });
   } catch (error) {
     console.error({ type: UPDATE_POST, error });
   }
 };
-
-// ({
-//   type: UPDATE_POST,
-//   payload: post,
-// });
 
 const postsReducer = (state = initialState, action) => {
   switch (action.type) {
